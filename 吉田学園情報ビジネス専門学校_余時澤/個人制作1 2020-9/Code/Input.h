@@ -1,0 +1,15 @@
+//=============================================================================
+//
+// [Input.h]
+// Author : Yo Jitaku
+//
+//=============================================================================
+#include "DirectX.h"
+
+HRESULT Initkeyboard(HINSTANCE hInstance, HWND hWnd);
+bool GetkeyboardPress(int nkey);
+bool GetkeyboardTrigger(int nkey);
+bool GetkeyboardRelease(int nkey);
+
+void Uninitkeyboard(void);
+void Updatekeyboard(void);
