@@ -20,6 +20,7 @@ int g_nCntTimeplayer;
 HRESULT InitPlayer(int nStage)
 {
 	LPDIRECT3DDEVICE9 pDevicePy = GetDevice();
+	LPDIRECT3DDEVICE9 pDeviceUpKey = GetDevice();
 	VERTEX_2D *pVtx;
 	PLAYER *pPlayer = &g_aPlayer;
 	g_nCntTimeplayer = 0;
@@ -123,6 +124,7 @@ void UpdatePlayer(int nStage)
 			ColDet = Vtx_Vector_ColDet(pPlayer->pos, pPolygon->pos, pPolygon->size);
 			if (ColDet == true)
 			{
+				//player
 				pPolygon->bAnime = true;
 				if (GetkeyboardPress(DIK_UP) == true)//enter the door
 				{
@@ -132,7 +134,9 @@ void UpdatePlayer(int nStage)
 					{
 					case MODE_MENU:
 						if (pPolygon->nDoorID == 1)//tutorial
+						{
 							SetFade(FADE_OUT, MODE_TUTORIAL);
+						}
 						if (pPolygon->nDoorID == 2)//start
 						{
 							SetFade(FADE_OUT, MODE_STAGE1);
@@ -143,7 +147,9 @@ void UpdatePlayer(int nStage)
 							pPlayer->nState = P_IDLE;
 						}
 						if (pPolygon->nDoorID == 3)//ranking
+						{
 							SetFade(FADE_OUT, MODE_RANK);
+						}
 						break;
 					case MODE_STAGE1:
 						if (pPolygon->nDoorID == 2)
@@ -177,7 +183,9 @@ void UpdatePlayer(int nStage)
 				}
 			}
 			else
+			{
 				pPolygon->bAnime = false;
+			}
 			break;
 		case 8://acid
 			ColDet = Vtx_Vector_ColDet(pPlayer->pos, pPolygon->pos, pPolygon->size);
@@ -222,6 +230,11 @@ void UpdatePlayer(int nStage)
 					}
 				}
 			}
+			break;
+		case 17://UPkey
+			if (abs(pPlayer->pos.x - pPolygon->pos.x) <= 100)
+				pPolygon->bUse = true;
+			else pPolygon->bUse = false;
 			break;
 		default:
 			pPlayer_CS = Player_ColDet(pPlayer->pos, pPlayer->size, pPolygon->pos, pPolygon->size);
@@ -351,9 +364,9 @@ void UpdatePlayer(int nStage)
 			{
 				pPlayer->nAnime = 0;
 				pPlayer->nState = P_ATTACK3;
-				pPlayer->bAnimeChange = false;
-				if (pPlayer->nDirection == 1) pPlayer->pos.x += 50;
-				else pPlayer->pos.x -= 50;
+				pPlayer->bAnimeChange = false;//anime•`‰ælock
+				if (pPlayer->nDirection == 1) pPlayer->pos.x += 20;//UŒ‚‚µ‚½‘O‚Éi‚Þ
+				else pPlayer->pos.x -= 20;//UŒ‚‚µ‚½‘O‚Éi‚Þ
 				PlaySound(SOUND_LABEL_SE_ATTACK);
 			}
 			else if (pPlayer->bAnimeChange == true) pPlayer->nState = P_IDLE;
@@ -769,10 +782,9 @@ void UpdatePlayer(int nStage)
 
 void DrawPlayer(void)
 {
-	LPDIRECT3DDEVICE9 pDevicePy;
-	pDevicePy = GetDevice();
-	PLAYER *pPlayer;
-	pPlayer = &g_aPlayer;
+	LPDIRECT3DDEVICE9 pDevicePy = GetDevice();
+	LPDIRECT3DDEVICE9 pDeviceUpKey = GetDevice();
+	PLAYER *pPlayer = &g_aPlayer;
 
 	//’¸“_Data flow‚ÌÝ’è
 	pDevicePy->SetStreamSource(0, g_pVtxBuffPlayer, 0, sizeof(VERTEX_2D));

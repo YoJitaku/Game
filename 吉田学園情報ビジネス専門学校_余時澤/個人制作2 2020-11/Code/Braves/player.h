@@ -8,6 +8,7 @@
 #include "DirectX.h"
 #include "PolyBlock.h"
 #define MAX_PLAYER_TEXTURE (9)
+
 typedef struct
 {
 	D3DXVECTOR3 pos;

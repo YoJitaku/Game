@@ -24,7 +24,7 @@ typedef struct
 	D3DXVECTOR3 pos;
 	D3DXVECTOR2 size;
 	int nZeroNum;//åvéZÇ∑ÇÈÇ∆Ç´0ÇÃå¬êî
-	unsigned int nMultipleNum;//
+	unsigned int nMultipleNum;
 	int nDisplayNum;//ï\é¶ÇµÇΩÇ¢number
 	bool bUse;
 }RESULT;
@@ -45,7 +45,6 @@ typedef struct
 }RANKPLAYER;
 
 void InputNewScore(RANKPLAYER *pRankPlayer);
-//void OutPutRanking(RANKPLAYER *pRankPlayer);
 void SetRank(void);
 void ReadFile(RANKPLAYER *pRankPlayer);
 void SetTextureResult(int nIdx, int nDisplayNumber);
@@ -54,8 +53,3 @@ void UninitRank(void);
 void UpdateRank(void);
 void DrawRank(void);
 char InputName(void);
-
-//HRESULT InitRanking(HWND hWnd);
-//void UninitRanking(void);
-//void UpdateRanking(void);
-//void DrawRanking(void);

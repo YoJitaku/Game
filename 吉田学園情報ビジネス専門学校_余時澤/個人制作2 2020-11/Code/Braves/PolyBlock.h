@@ -10,10 +10,18 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BLOCK_TEXTURE (20)
+#define BLOCK_TEXTURE (18)
 #define DEFAULT_WIDTH (96)
 #define DEFAULT_HEIGHT (108)
-
+#define MAP_DATA_ROW 20
+#define MAP_DATA_COLUMN 500
+#define POLYGON_STAGE_1 2//title
+#define POLYGON_STAGE_2 39//menu 
+#define POLYGON_STAGE_3 1//handbook 
+#define POLYGON_STAGE_4 421//stage1 
+#define POLYGON_STAGE_5 441//stage2 
+#define POLYGON_STAGE_6 1//rank
+#define DOOR_NUM 2
 typedef struct
 {
 	D3DXVECTOR3 pos;

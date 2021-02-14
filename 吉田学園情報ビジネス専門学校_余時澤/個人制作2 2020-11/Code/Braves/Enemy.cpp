@@ -12,9 +12,9 @@
 #include "collision.h"
 
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffEnemy = NULL;
-LPDIRECT3DTEXTURE9 g_pTextureEnemy[15] = {};
+LPDIRECT3DTEXTURE9 g_pTextureEnemy[ENEMY_TEX_NUM] = {};
 ENEMY *pEnemy;
-int g_aEnemy[6] = { 0, 0, 0, 2, 2, 0 }; //0title 1menu 2handbook 3stage1 4stage2 5rank
+int g_aEnemy[STAGE_NUM] = { ENEMY_STAGE_1, ENEMY_STAGE_2, ENEMY_STAGE_3, ENEMY_STAGE_4, ENEMY_STAGE_5,ENEMY_STAGE_6 };
 int g_nCntTimeEm;//時間count
 
 void SetEnemy(void)
@@ -47,53 +47,6 @@ void SetEnemy(void)
 			pMapData++;
 		}
 	}
-	//敵の種類
-	//if (g_aMapData[nCntR][nCntC] == 50 || g_aMapData[nCntR][nCntC] == 51 || g_aMapData[nCntR][nCntC] == 52)
-	//{
-	//	ppEnemy[nCntEnemy].nDeadTime = 0;
-	//	if (g_aMapData[nCntR][nCntC] == 50)
-	//	{
-	//		
-	//	}
-	//	else if (g_aMapData[nCntR][nCntC] == 51)
-	//	{
-	//		ppEnemy[nCntEnemy].bUse = true;
-	//		ppEnemy[nCntEnemy].bBlock = true;
-	//		ppEnemy[nCntEnemy].bHurt = false;
-	//		ppEnemy[nCntEnemy].bAlert = false;
-	//		ppEnemy[nCntEnemy].nState = E_IDLE;
-	//		ppEnemy[nCntEnemy].nDirection = rand() % 2;//開始の向こう random
-	//		ppEnemy[nCntEnemy].nLife = 3;
-	//		ppEnemy[nCntEnemy].pos = D3DXVECTOR3((float)nCntC * DEFAULT_WIDTH + DEFAULT_WIDTH, (float)nCntR * DEFAULT_HEIGHT, 0);
-	//		ppEnemy[nCntEnemy].size = D3DXVECTOR2(80, 80);
-	//		ppEnemy[nCntEnemy].move = D3DXVECTOR3(0, 0, 0);
-	//		ppEnemy[nCntEnemy].nAnime = 0;
-	//		ppEnemy[nCntEnemy].nMoveRange = 0;
-	//		ppEnemy[nCntEnemy].bAnimeChange = true;
-	//		//ppEnemy->nMoveType = 1;
-	//		ppEnemy[nCntEnemy].nType = 1;
-	//		nCntEnemy++;
-	//	}
-	//	else if (g_aMapData[nCntR][nCntC] == 52)
-	//	{
-	//		ppEnemy[nCntEnemy].bUse = true;
-	//		ppEnemy[nCntEnemy].bBlock = true;
-	//		ppEnemy[nCntEnemy].bHurt = false;
-	//		ppEnemy[nCntEnemy].bAlert = false;
-	//		ppEnemy[nCntEnemy].nState = E_IDLE;
-	//		ppEnemy[nCntEnemy].nDirection = rand() % 2;//開始の向こう random
-	//		ppEnemy[nCntEnemy].nLife = 10;
-	//		ppEnemy[nCntEnemy].pos = D3DXVECTOR3((float)nCntC * DEFAULT_WIDTH + DEFAULT_WIDTH, (float)nCntR * DEFAULT_HEIGHT, 0);
-	//		ppEnemy[nCntEnemy].size = D3DXVECTOR2(80, 80);
-	//		ppEnemy[nCntEnemy].move = D3DXVECTOR3(0, 0, 0);
-	//		ppEnemy[nCntEnemy].nAnime = 0;
-	//		ppEnemy[nCntEnemy].nMoveRange = 0;
-	//		ppEnemy[nCntEnemy].bAnimeChange = true;
-	//		//ppEnemy->nMoveType = 2;
-	//		ppEnemy[nCntEnemy].nType = 2;
-	//		nCntEnemy++;
-	//	}
-	//}
 }
 
 HRESULT InitEnemy(int nStage)
@@ -109,16 +62,6 @@ HRESULT InitEnemy(int nStage)
 	D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy1Attack.png", &g_pTextureEnemy[2]);
 	D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy1Dead.png", &g_pTextureEnemy[3]);
 	D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy1Hurt.png", &g_pTextureEnemy[4]);
-	//D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy2Idle.png", &g_pTextureEnemy[5]);
-	//D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy2Walk.png", &g_pTextureEnemy[6]);
-	//D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy2Attack.png", &g_pTextureEnemy[7]);
-	//D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy2Dead.png", &g_pTextureEnemy[8]);
-	//D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy2Hurt.png", &g_pTextureEnemy[9]);
-	//D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy3Idle.png", &g_pTextureEnemy[10]);
-	//D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy3Walk.png", &g_pTextureEnemy[11]);
-	//D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy3Attack.png", &g_pTextureEnemy[12]);
-	//D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy3Dead.png", &g_pTextureEnemy[13]);
-	//D3DXCreateTextureFromFile(pDeviceEm, "data//TEXTURE//Enemy3Hurt.png", &g_pTextureEnemy[14]);
 
 	//vtx buffer
 	if (FAILED(pDeviceEm->CreateVertexBuffer(sizeof(VERTEX_2D) * 4 * g_aEnemy[nStage], D3DUSAGE_WRITEONLY, FVF_VERTEX_2D, D3DPOOL_MANAGED, &g_pVtxBuffEnemy, NULL))) return E_FAIL;
@@ -165,7 +108,7 @@ void UninitEnemy(int nStage)
 		g_pVtxBuffEnemy->Release();
 		g_pVtxBuffEnemy = NULL;
 	}
-	for (int nCnt = 0; nCnt < 15; nCnt++)
+	for (int nCnt = 0; nCnt < ENEMY_TEX_NUM; nCnt++)
 	{
 		if (g_pTextureEnemy[nCnt] != NULL)
 		{

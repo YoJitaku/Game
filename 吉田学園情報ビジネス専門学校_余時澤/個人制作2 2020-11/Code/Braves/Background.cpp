@@ -10,8 +10,9 @@
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffBackground = NULL;
 LPDIRECT3DTEXTURE9 g_pTextureBackground[BACKGROUND_NUM] = {};
 
-//各ステージ使用したtextureの数。1title 6menu 1handbook 6stage1 6stage2 1rank
-int nCntTimeBg, aBackGroundNum[6] = {1, 6, 1, 6, 6, 1}; 
+//各ステージ使用したPOLY数
+int aBackGroundNum[STAGE_NUM] = { BACKGROUND_STAGE_1, BACKGROUND_STAGE_2, BACKGROUND_STAGE_3, BACKGROUND_STAGE_4, BACKGROUND_STAGE_5, BACKGROUND_STAGE_6};
+int nCntTimeBg;//時間count
 BACKGROUND *pBackground;
 
 //今のステージ番号を導入する

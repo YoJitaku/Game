@@ -50,7 +50,6 @@ HRESULT InitUI(void)
 	SetUI();
 
 	D3DXCreateTextureFromFile(pDeviceUI, "data//TEXTURE//HP.png", &g_pTextureUI[0]);
-	//D3DXCreateTextureFromFile(pDeviceUI, "data//TEXTURE//Time.png", &g_pTextureUI[1]);
 	D3DXCreateTextureFromFile(pDeviceUI, "data//TEXTURE//Score.png", &g_pTextureUI[1]);
 
 	if (FAILED(pDeviceUI->CreateVertexBuffer(sizeof(VERTEX_2D) * 4 * UI_COMPONENT, D3DUSAGE_WRITEONLY, FVF_VERTEX_2D, D3DPOOL_MANAGED, &g_pVtxBuffUI, NULL))) return E_FAIL;

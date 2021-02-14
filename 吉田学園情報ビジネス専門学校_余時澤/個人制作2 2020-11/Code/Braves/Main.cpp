@@ -92,7 +92,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR LpCmdLine
 				dwFPSLastTime = dwCurrentTime;//一応計算したら、今回の最終時間を保存する
 				dwFrameCount = 0;//FPS計数reset
 			}
-			//if ((dwCurrentTime - dwExecLastTime) > (1000 / 60))
 			else
 			{
 				dwExecLastTime = dwCurrentTime;

@@ -1,12 +1,12 @@
-#include "Tutorial.h"
-#include "background.h"
-#include "polyblock.h"
 //=============================================================================
 //
 // [Tutorial.cpp]Å@
 // Author : Yo Jitaku
 //
 //=============================================================================
+#include "Tutorial.h"
+#include "background.h"
+#include "polyblock.h"
 #include "Input.h"
 #include "Fade.h"
 #include "player.h"

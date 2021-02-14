@@ -10,7 +10,7 @@
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffFade = NULL;
 LPDIRECT3DDEVICE9 pDeviceFd;
 
-float g_fFadeCnt = (float)0.03;
+float g_fFadeCnt = (float)0.03;//fade程度を記録
 FADE g_fade;
 MODE g_modeNext;
 D3DXCOLOR g_colorFade;
@@ -21,7 +21,7 @@ HRESULT InitFade(MODE modeNext)
 	pDeviceFd = GetDevice();
 	VERTEX_2D *pVtx;
 
-	g_fade = FADE_IN;
+	g_fade = FADE_IN;//始めはfade in
 	g_modeNext = modeNext;
 	g_colorFade = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
 
@@ -32,10 +32,10 @@ HRESULT InitFade(MODE modeNext)
 	pVtx[1].pos = D3DXVECTOR3(SCREEN_WIDTH, 0, 0.0f);
 	pVtx[2].pos = D3DXVECTOR3(0, SCREEN_HEIGHT, 0.0f);
 	pVtx[3].pos = D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f);
-	pVtx[0].rhw = 1.0f;//？
-	pVtx[1].rhw = 1.0f;//？
-	pVtx[2].rhw = 1.0f;//？
-	pVtx[3].rhw = 1.0f;//？
+	pVtx[0].rhw = 1.0f;
+	pVtx[1].rhw = 1.0f;
+	pVtx[2].rhw = 1.0f;
+	pVtx[3].rhw = 1.0f;
 	pVtx[0].col = g_colorFade;
 	pVtx[1].col = g_colorFade;
 	pVtx[2].col = g_colorFade;
@@ -116,10 +116,8 @@ void DrawFade(void)
 
 void SetFade(FADE fade, MODE modeNext)
 {
-	/*int nScore = GetScore();*/
 	g_fade = fade;
 	g_modeNext = modeNext;
-	/*if (modeNext == MODE_RANKING && nScore > 0) g_fFadeCnt = 0.005f;*/
 }
 
 FADE GetFade(void)

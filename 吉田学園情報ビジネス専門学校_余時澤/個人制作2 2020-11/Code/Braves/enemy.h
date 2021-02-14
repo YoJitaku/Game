@@ -11,6 +11,13 @@
 #include <string.h>
 
 #define WALK_SPEED 3.0f
+#define ENEMY_TEX_NUM 5
+#define ENEMY_STAGE_1 0//title 
+#define ENEMY_STAGE_2 0//menu 
+#define ENEMY_STAGE_3 0//handbook 
+#define ENEMY_STAGE_4 2//stage1 
+#define ENEMY_STAGE_5 2//stage2 
+#define ENEMY_STAGE_6 0//rank
 
 typedef enum
 {

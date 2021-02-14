@@ -15,12 +15,12 @@
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffBlock = NULL;
 LPDIRECT3DTEXTURE9 g_pTextureBlock[BLOCK_TEXTURE] = {};
 POLYGON *pPolygon;
-int nCntTime, g_aPolygon[6] = {2, 50, 1, 1000, 1000, 1};//各ステージpolygonの数　title menu47 tutorial stage1 stage2 rank
+int nCntTime, g_aPolygon[STAGE_NUM] = { POLYGON_STAGE_1, POLYGON_STAGE_2, POLYGON_STAGE_3, POLYGON_STAGE_4, POLYGON_STAGE_5, POLYGON_STAGE_6};//各ステージpolygonの数
 int g_nCntRow, g_nCntColumn;//行列計算用
-int g_aMapData[20][500];//csv file読み込た配置情報
+int g_aMapData[MAP_DATA_ROW][MAP_DATA_COLUMN];//csv file読み込た配置情報
 bool g_bAllMove;//スクロール移動
 D3DXVECTOR2 g_AllMove;//スクロール移動速度
-int g_aDoorNum[2] = { 0 , 0 };//doorの番号を保存する　スクロール判定用
+int g_aDoorNum[DOOR_NUM] = { 0 , 0 };//doorの番号を保存する　スクロール判定用
 //fileを選択
 void ReadFile(int nStage)
 {
@@ -217,7 +217,12 @@ void SetPolygon(int nStage)
 					pPolygon[nCntPoly].size = D3DXVECTOR2(0.25f * DEFAULT_WIDTH, 0.25f * DEFAULT_HEIGHT);
 					pPolygon[nCntPoly].bAnime = true;
 					break;
-
+				case 17://UPkey
+					pPolygon[nCntPoly].pos = D3DXVECTOR3((float)nCntC * DEFAULT_WIDTH + DEFAULT_WIDTH, (float)nCntR * DEFAULT_HEIGHT - 0.3f * DEFAULT_HEIGHT, 0);
+					pPolygon[nCntPoly].size = D3DXVECTOR2(DEFAULT_WIDTH * 0.4f, DEFAULT_HEIGHT * 0.4f);
+					pPolygon[nCntPoly].bUse = false;
+					pPolygon[nCntPoly].bBlock = false;
+					break;
 				//左右移動床1
 				case 21://leftright 1 left
 					pPolygon[nCntPoly].bBlock = true;
@@ -385,6 +390,7 @@ HRESULT InitPolyBlock(int nStage)
 		D3DXCreateTextureFromFile(pDeviceBk, "data//TEXTURE//14landbaseleft.png", &g_pTextureBlock[14]);
 		D3DXCreateTextureFromFile(pDeviceBk, "data//TEXTURE//15landbaseright.png", &g_pTextureBlock[15]);
 		D3DXCreateTextureFromFile(pDeviceBk, "data//TEXTURE//Coin.png", &g_pTextureBlock[16]);
+		D3DXCreateTextureFromFile(pDeviceBk, "data//TEXTURE//UpKey.png", &g_pTextureBlock[17]);
 		break;
 	case 2:
 		D3DXCreateTextureFromFile(pDeviceBk, "data//TEXTURE//TutorialLogo.png", &g_pTextureBlock[0]);
@@ -407,6 +413,7 @@ HRESULT InitPolyBlock(int nStage)
 		D3DXCreateTextureFromFile(pDeviceBk, "data//TEXTURE//landb1baseleft.png", &g_pTextureBlock[14]);
 		D3DXCreateTextureFromFile(pDeviceBk, "data//TEXTURE//landb1baseright.png", &g_pTextureBlock[15]);
 		D3DXCreateTextureFromFile(pDeviceBk, "data//TEXTURE//Coin.png", &g_pTextureBlock[16]);
+		D3DXCreateTextureFromFile(pDeviceBk, "data//TEXTURE//UpKey.png", &g_pTextureBlock[17]);
 		break;
 	case 5:
 		D3DXCreateTextureFromFile(pDeviceBk, "data//TEXTURE//RankingLogo.png", &g_pTextureBlock[0]);
@@ -461,6 +468,12 @@ HRESULT InitPolyBlock(int nStage)
 			pVtx[2].tex = D3DXVECTOR2(0.1f * pPolygon[nCnt].nAnime, 1.0);
 			pVtx[3].tex = D3DXVECTOR2(0.1f + 0.1f * pPolygon[nCnt].nAnime, 1.0);
 			break;
+		case 17://UPkey
+			pVtx[0].tex = D3DXVECTOR2(0.2f * pPolygon[nCnt].nAnime, 0.0);
+			pVtx[1].tex = D3DXVECTOR2(0.2f + 0.2f * pPolygon[nCnt].nAnime, 0.0);
+			pVtx[2].tex = D3DXVECTOR2(0.2f * pPolygon[nCnt].nAnime, 1.0);
+			pVtx[3].tex = D3DXVECTOR2(0.2f + 0.2f * pPolygon[nCnt].nAnime, 1.0);
+			break;
 		default:
 			pVtx[0].tex = D3DXVECTOR2(0.0, 0.0);
 			pVtx[1].tex = D3DXVECTOR2(1.0, 0.0);
@@ -489,7 +502,6 @@ void UninitPolyBlock(int nStage)
 		}
 	}
 	free(pPolygon);
-	//free(ppEnemy);
 }
 
 void UpdatePolyBlock(int nStage)
@@ -550,6 +562,16 @@ void UpdatePolyBlock(int nStage)
 					pVtx[1].tex = D3DXVECTOR2(0.25f + 0.25f * pPolygon[nCnt].nAnime, 0.0);
 					pVtx[2].tex = D3DXVECTOR2(0.25f * pPolygon[nCnt].nAnime, 1.0);
 					pVtx[3].tex = D3DXVECTOR2(0.25f + 0.25f * pPolygon[nCnt].nAnime, 1.0);
+				}
+				break;
+			case 17://Upkey
+				if (nCntTime % 15 == 0 && pPolygon[nCnt].bUse == true)
+				{
+					pPolygon[nCnt].nAnime++;
+					pVtx[0].tex = D3DXVECTOR2(0.2f * pPolygon[nCnt].nAnime, 0.0);
+					pVtx[1].tex = D3DXVECTOR2(0.2f + 0.2f * pPolygon[nCnt].nAnime, 0.0);
+					pVtx[2].tex = D3DXVECTOR2(0.2f * pPolygon[nCnt].nAnime, 1.0);
+					pVtx[3].tex = D3DXVECTOR2(0.2f + 0.2f * pPolygon[nCnt].nAnime, 1.0);
 				}
 				break;
 			default:
@@ -635,6 +657,16 @@ void UpdatePolyBlock(int nStage)
 					pVtx[1].tex = D3DXVECTOR2(0.1f + 0.1f * pPolygon[nCnt].nAnime, 0.0);
 					pVtx[2].tex = D3DXVECTOR2(0.1f * pPolygon[nCnt].nAnime, 1.0);
 					pVtx[3].tex = D3DXVECTOR2(0.1f + 0.1f * pPolygon[nCnt].nAnime, 1.0);
+				}
+				break;
+			case 17://Upkey
+				if (nCntTime % 15 == 0 && pPolygon[nCnt].bUse == true)
+				{
+					pPolygon[nCnt].nAnime++;
+					pVtx[0].tex = D3DXVECTOR2(0.2f * pPolygon[nCnt].nAnime, 0.0);
+					pVtx[1].tex = D3DXVECTOR2(0.2f + 0.2f * pPolygon[nCnt].nAnime, 0.0);
+					pVtx[2].tex = D3DXVECTOR2(0.2f * pPolygon[nCnt].nAnime, 1.0);
+					pVtx[3].tex = D3DXVECTOR2(0.2f + 0.2f * pPolygon[nCnt].nAnime, 1.0);
 				}
 				break;
 			default:
@@ -779,6 +811,16 @@ void UpdatePolyBlock(int nStage)
 					pVtx[1].tex = D3DXVECTOR2(0.1f + 0.1f * pPolygon[nCnt].nAnime, 0.0);
 					pVtx[2].tex = D3DXVECTOR2(0.1f * pPolygon[nCnt].nAnime, 1.0);
 					pVtx[3].tex = D3DXVECTOR2(0.1f + 0.1f * pPolygon[nCnt].nAnime, 1.0);
+				}
+				break;
+			case 17://Upkey
+				if (nCntTime % 15 == 0 && pPolygon[nCnt].bUse == true)
+				{
+					pPolygon[nCnt].nAnime++;
+					pVtx[0].tex = D3DXVECTOR2(0.2f * pPolygon[nCnt].nAnime, 0.0);
+					pVtx[1].tex = D3DXVECTOR2(0.2f + 0.2f * pPolygon[nCnt].nAnime, 0.0);
+					pVtx[2].tex = D3DXVECTOR2(0.2f * pPolygon[nCnt].nAnime, 1.0);
+					pVtx[3].tex = D3DXVECTOR2(0.2f + 0.2f * pPolygon[nCnt].nAnime, 1.0);
 				}
 				break;
 			default:

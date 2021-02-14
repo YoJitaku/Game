@@ -20,8 +20,7 @@
 
 LPDIRECT3D9 g_pD3D = NULL;//user pc's graphics caxrd information get
 LPDIRECT3DDEVICE9 g_pD3DDevice = NULL;
-MODE g_Mode = MODE_TITLE;//始めるMODEはTitle1
-//MODE g_Mode = MODE_MENU;
+MODE g_Mode = MODE_TITLE;//始めるMODEはTitle
 LPD3DXFONT g_pFont = NULL;//画面にの文字描画pointer
 int g_nCountFPS;//fps保存する変数
 
@@ -98,7 +97,7 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	//Game最初の初期化
 	Initkeyboard(hInstance, hWnd);
 	InitSound(hWnd);
-	//PlaySound(SOUND_LABEL_BGM);
+	PlaySound(SOUND_LABEL_BGM);
 	InitFade(MODE_TITLE);
 	SetMode(MODE_TITLE);
 	return S_OK;
@@ -192,12 +191,12 @@ void SetMode(MODE mode)
 		break;
 	case MODE_MENU:
 		InitMenu();
+		InitUI();
 		break;
 	case MODE_TUTORIAL:
 		InitTutorial();
 		break;
 	case MODE_STAGE1:
-		InitUI();
 		InitStage1();
 		break;
 	case MODE_STAGE2:

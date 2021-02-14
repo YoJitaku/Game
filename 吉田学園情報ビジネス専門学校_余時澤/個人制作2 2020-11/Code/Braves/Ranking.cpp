@@ -337,7 +337,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -352,7 +351,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -367,7 +365,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -382,7 +379,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -397,7 +393,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -412,7 +407,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -427,7 +421,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -442,7 +435,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -457,7 +449,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -472,7 +463,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -487,7 +477,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -502,7 +491,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -517,7 +505,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -532,7 +519,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -547,7 +533,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-					//	PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -562,7 +547,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-					//	PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -577,7 +561,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -592,7 +575,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -607,7 +589,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -622,7 +603,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-					//	PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -637,7 +617,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-					//	PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -652,7 +631,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-					//	PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -667,7 +645,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-					//	PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -682,7 +659,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-					//	PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -697,7 +673,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-						//PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -712,7 +687,6 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					if (nCnt == 5)
 					{
-					//	PlaySound(SOUND_LABEL_SE_DECIDE);
 						bInput = true;
 						break;
 					}
@@ -736,9 +710,7 @@ void UpdateRank(void)
 					else strcat(pRankPlayer->aName, &g_Input);
 					g_aName[nCntrow][nCnt].NewsIn = true;
 					bInput = true;
-				//	PlaySound(SOUND_LABEL_SE_DECIDE);
 					break;
-					//}
 				}
 			}
 			else
@@ -868,10 +840,8 @@ void UpdateRank(void)
 
 void DrawRank(void)
 {
-	LPDIRECT3DDEVICE9 pDeviceRk;
-	pDeviceRk = GetDevice();
-	RANK *pRank;
-	pRank = &g_aRank[0];
+	LPDIRECT3DDEVICE9 pDeviceRk = GetDevice(); 
+	RANK *pRank = &g_aRank[0];
 
 	pDeviceRk->SetStreamSource(0, g_pVtxBuffRank, 0, sizeof(VERTEX_2D));
 	pDeviceRk->SetFVF(FVF_VERTEX_2D);
@@ -885,7 +855,7 @@ void DrawRank(void)
 		}
 	}
 
-	int nSigma = 0;
+	int nSigma = 0;//頂点累加reset
 	for (int nCntResultRow = 1; nCntResultRow <= RESULT_ROW; nCntResultRow++)
 	{
 		pDeviceRk->SetTexture(0, g_pTextureRank[2]);
@@ -893,10 +863,10 @@ void DrawRank(void)
 		{
 			pDeviceRk->DrawPrimitive(D3DPT_TRIANGLESTRIP, (MAX_COMPONENT_RANK - 1) * 4 + nSigma + nCntResultZero * 4, 2);//描画(1,ploygonの種類　2,始める頂点　3,polygonの数)
 		}
-		nSigma = nSigma + MAX_COMPONENT_RESULT * 4;
+		nSigma = nSigma + MAX_COMPONENT_RESULT * 4;//頂点累加
 	}
 
-	nSigma = 0;
+	nSigma = 0;//頂点累加reset
 	for (int nCntResultRow = 0; nCntResultRow < RESULT_ROW; nCntResultRow++)
 	{
 		for (int nCntResultZero = 0; nCntResultZero < 6; nCntResultZero++)
@@ -907,7 +877,7 @@ void DrawRank(void)
 				pDeviceRk->DrawPrimitive(D3DPT_TRIANGLESTRIP, 168 + nSigma + nCntResultZero * 4, 2);
 			}
 		}
-		nSigma = nSigma + 6 * 4;
+		nSigma = nSigma + 6 * 4;//頂点累加
 	}
 	OutPutRanking(&g_aRankPlayer[0]);
 }
