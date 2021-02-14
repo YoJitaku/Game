@@ -1,7 +1,0 @@
-﻿  BossStage.cpp
-BossStage.cpp(201): error C2065: 'PI': 定義されていない識別子です。
-BossStage.cpp(201): error C2660: 'Spin': 関数に 3 個の引数を指定できません。
-BossStage.cpp(221): error C2065: 'PI': 定義されていない識別子です。
-BossStage.cpp(221): error C2660: 'Spin': 関数に 3 個の引数を指定できません。
-BossStage.cpp(242): error C2065: 'PI': 定義されていない識別子です。
-BossStage.cpp(242): error C2660: 'Spin': 関数に 3 個の引数を指定できません。
