@@ -9,6 +9,7 @@
 #define MAX_COMPONENT_BOSS (5)
 #define TYPE_BOSS (3)
 #define PI (3.14)
+
 typedef struct
 {
 	D3DXVECTOR3 pos;

@@ -1,8 +1,7 @@
-﻿  Winmain.cpp
-  コード生成しています。
-  2 of 190 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
-  コード生成が終了しました。
-  FirstGame-Aurora-2DShooting.vcxproj -> C:\Users\student\Desktop\GitHub\FirstGame-Aurora-2DShooting\Code\Release\FirstGame-Aurora-2DShooting.exe
-  FirstGame-Aurora-2DShooting.vcxproj -> C:\Users\student\Desktop\GitHub\FirstGame-Aurora-2DShooting\Code\Release\FirstGame-Aurora-2DShooting.pdb (Full PDB)
+﻿  BossStage.cpp
+BossStage.cpp(201): error C2065: 'PI': 定義されていない識別子です。
+BossStage.cpp(201): error C2660: 'Spin': 関数に 3 個の引数を指定できません。
+BossStage.cpp(221): error C2065: 'PI': 定義されていない識別子です。
+BossStage.cpp(221): error C2660: 'Spin': 関数に 3 個の引数を指定できません。
+BossStage.cpp(242): error C2065: 'PI': 定義されていない識別子です。
+BossStage.cpp(242): error C2660: 'Spin': 関数に 3 個の引数を指定できません。
