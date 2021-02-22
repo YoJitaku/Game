@@ -10,6 +10,7 @@
 #define ENEMY_NUM 50
 #define ENEMY_BORN_RANGE 1000
 
+HRESULT InitEnemyMenu(void);
 HRESULT InitEnemy(void);
 void UninitEnemy(void);
 void UpdateEnemy(void);

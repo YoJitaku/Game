@@ -7,7 +7,7 @@
 #ifndef _MENU_H_
 #define _MENU_H_
 #include "DirectX.h"
-#define MENU_COMPONENT (8)
+#define MENU_COMPONENT (5)
 
 HRESULT InitMenu(void);
 void UninitMenu(void);

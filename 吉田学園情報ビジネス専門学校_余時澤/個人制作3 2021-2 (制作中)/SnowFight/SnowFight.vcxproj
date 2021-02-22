@@ -170,6 +170,7 @@
     <ClCompile Include="SnowParticle.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="WorldBillboard.cpp" />
     <ClCompile Include="WorldModel.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="SnowBall.h" />
     <ClInclude Include="SnowParticle.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="WorldBillboard.h" />
     <ClInclude Include="Camera.h" />

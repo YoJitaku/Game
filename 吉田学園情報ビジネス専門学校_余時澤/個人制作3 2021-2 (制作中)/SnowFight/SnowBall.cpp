@@ -2,9 +2,11 @@
 #include "Dinput8.h"
 #include "Camera.h"
 #include "WorldModel.h"
+#include "Collision.h"
 
 MODEL *pSnowBall;
 float g_fGravity = 0.05f;
+float g_fCol_Range;
 HRESULT InitSnowBall(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
@@ -16,6 +18,14 @@ HRESULT InitSnowBall(void)
 		pSnowBall[nCnt].bUse = false;
 		pSnowBall[nCnt].pos = D3DXVECTOR3(0.f, 0.f, 0.f);
 	}
+
+	//BYTE *pVtxBuff;//頂点bufferへのpointer
+	//D3DXVECTOR3 Sphere_Radius;
+	//pSnowBall[0].Xfile_Mesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVtxBuff);//頂点buffをlock
+	//D3DXVECTOR3 vtx = *(D3DXVECTOR3*)pVtxBuff;//頂点情報を取る
+	//Sphere_Radius = vtx - pSnowBall[0].pos;//球半径のvector
+	//pSnowBall[0].Xfile_Mesh->UnlockVertexBuffer();//unlock
+	//g_fCol_Range = sqrt(Sphere_Radius.x * Sphere_Radius.x + Sphere_Radius.y * Sphere_Radius.y + Sphere_Radius.z * Sphere_Radius.z);
 
 	return S_OK;
 }
@@ -68,23 +78,20 @@ void UpdateSnowBall(void)
 	}
 
 	//当たり判定 snowballとmodelを当た時消す
-	//BYTE *pVtxBuff;//頂点bufferへのpointer
-	//D3DXVECTOR3 Sphere_Radius;
-	//for (int nCnt = 0; nCnt < SNOWBALL_MAX_NUM; nCnt++)
-	//{
-	//	if (pSnowBall[nCnt].bUse == true)
-	//	{
-	//		pSnowBall[nCnt].Xfile_Mesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVtxBuff);//頂点buffをlock
-	//		D3DXVECTOR3 vtx = *(D3DXVECTOR3*)pVtxBuff;//頂点情報を取る
-	//		Sphere_Radius = vtx - pSnowBall[nCnt].pos;//球半径のvector
-	//		pSnowBall[nCnt].Xfile_Mesh->UnlockVertexBuffer();//unlock
-
-	//		for (int nCnt = 0; nCnt < WORLDMODEL_NUM; nCnt++)
-	//		{
-
-	//		}
-	//	}
-	//}
+	MODEL *pModel = GetWorldModel();
+	for (int nCntBall = 0; nCntBall < SNOWBALL_MAX_NUM; nCntBall++)
+	{
+		bool bCol = false;
+		if (pSnowBall[nCntBall].bUse == true)
+		{
+			for (int nCntMod = 0; nCntMod < WORLDMODEL_NUM; nCntMod++, pModel++)
+			{
+				bCol = CollisionDetection(pSnowBall[nCntBall].pos, pModel->MinColBox, pModel->MaxColBox);
+				if (bCol == true) 
+					pSnowBall[nCntBall].bUse = false;		
+			}
+		}
+	}
 }
 
 void DrawSnowBall(void)

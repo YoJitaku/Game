@@ -21,8 +21,10 @@ typedef struct
 	float fSpeed;
 }CAMERA;
 
+HRESULT InitCameraMenu(void);
 HRESULT InitCamera(void);
 void UpdateCamera(void);
 void SetCamera(void);
 CAMERA *GetCamera(void);
+int Getnnn(void);
 #endif

@@ -78,6 +78,8 @@ typedef struct
 	D3DXVECTOR3 rot;//各パーツの向き
 	D3DXVECTOR3 move;//移動量
 	LPDIRECT3DTEXTURE9 g_Textures[10];
+	D3DXVECTOR3 MinColBox;
+	D3DXVECTOR3 MaxColBox;
 	int nIdxModelParent;//親パーツのID
 	int ID;
 	float fMoveSpeed;//移動速度
@@ -88,6 +90,7 @@ typedef enum
 {
 	MODE_COMPANY = 0, //company name
 	MODE_TITLE, //Game title
+	MODE_TUTORIAL,
 	MODE_MENU,
 	MODE_GAME,
 	MODE_GCO,//game clear and game over

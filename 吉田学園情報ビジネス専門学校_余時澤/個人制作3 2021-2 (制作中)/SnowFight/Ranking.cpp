@@ -76,7 +76,7 @@ void UninitRank(void)
 void UpdateRank(void)
 {
 	if (GetkeyboardTrigger(DIK_RETURN) == true)
-		SetFade(FADE_OUT, MODE_TITLE);
+		SetFade(FADE_OUT, MODE_MENU);
 }
 
 void DrawRank(void)

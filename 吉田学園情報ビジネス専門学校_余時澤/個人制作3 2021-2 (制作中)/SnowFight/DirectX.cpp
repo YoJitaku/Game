@@ -4,6 +4,7 @@
 // Author : JITAKU YO
 //
 //=============================================================================
+#define _CRT_SECURE_NO_WARNINGS
 #include "DirectX.h"
 #include "Xinput.h"
 #include "Dinput8.h"
@@ -16,6 +17,7 @@
 #include "Menu.h"
 #include "GameClearOver.h"
 #include "Ranking.h"
+#include "Tutorial.h"
 
 //Main Game
 #include "Light.h"
@@ -41,8 +43,8 @@ bool g_bPause;
 HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)//why use HRESULT?
 {
 	g_bPause = false;
-	//g_Mode = MODE_COMPANY;
-	g_Mode = MODE_GAME;
+	g_Mode = MODE_COMPANY;
+	//g_Mode = MODE_GAME;
 	srand((int)time(0));
 	//check the user's hardware character
 	D3DDISPLAYMODE d3ddm;//graphics card mode
@@ -111,14 +113,13 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)//why use HRESULT?
 
 	Initkeyboard(hInstance, hWnd);
 	InitMouse(hInstance, hWnd);
-	InitCamera();
 	InitLight();
 	//InitSound(hWnd);
-	//InitFade(MODE_COMPANY);
-	//SetMode(MODE_COMPANY);
-	InitFade(MODE_GAME);
-	SetMode(MODE_GAME);
-
+	InitCameraMenu();
+	InitFade(MODE_COMPANY);
+	SetMode(MODE_COMPANY);
+	//InitFade(MODE_GAME);
+	//SetMode(MODE_GAME);
 
 	return S_OK;
 }
@@ -191,10 +192,13 @@ void SetMode(MODE mode)
 		break;
 	case MODE_MENU:
 		UninitMenu();
+		UninitEnemy();
+		break;
+	case MODE_TUTORIAL:
+		UninitTutorial();
 		break;
 	case MODE_GAME:
 		//UninitPlayer();
-	
 		UninitGround();
 		UninitUI();
 		UninitWorldModel();
@@ -221,19 +225,24 @@ void SetMode(MODE mode)
 		InitTitle();
 		break;
 	case MODE_MENU:
+		InitCameraMenu();
 		InitMenu();
+		InitGround();
+		InitSnowParticle();
+		InitSkyBox();
+		InitEnemyMenu();
+		break;
+	case MODE_TUTORIAL:
+		InitTutorial();
 		break;
 	case MODE_GAME:
 		//InitPlayer();
-		InitGround();
+		InitCamera();
 		InitUI();
 		InitWorldModel();
-		InitSkyBox();
 		InitWorldBillboard();
 		InitSnowBall();
-		InitSnowParticle();
 		InitEnemy();
-
 		break;
 	case MODE_GCO:
 		InitGCO();
@@ -256,15 +265,19 @@ void UpdateMode(MODE mode)
 		break;
 	case MODE_MENU:
 		UpdateMenu();
+		UpdateCamera();
+		UpdateSnowParticle();
+		break;
+	case MODE_TUTORIAL:
+		UpdateTutorial();
 		break;
 	case MODE_GAME:
-
-		UpdateCamera();
 		UpdateUI();
 		UpdateWorldModel();
 		UpdateSnowBall();
 		UpdateEnemy();
 		UpdateSnowParticle();
+		UpdateCamera();
 		if (GetkeyboardPress(DIK_RETURN) == TRUE)
 		{
 			SetFade(FADE_OUT, MODE_RANKING);
@@ -291,17 +304,23 @@ void DrawMode(MODE mode)
 		DrawTitle();
 		break;
 	case MODE_MENU:
+		DrawSkyBox();
+		DrawGround();
+		DrawEnemy();
+		DrawSnowParticle();
 		DrawMenu();
+		break;
+	case MODE_TUTORIAL:
+		DrawTutorial();
 		break;
 	case MODE_GAME:
 		DrawGround();
-		DrawWorldModel();
 		DrawSkyBox();
+		DrawSnowParticle();
+		DrawWorldModel();
 		DrawWorldBillboard();
 		DrawSnowBall();
 		DrawEnemy();
-		DrawSnowParticle();
-
 		DrawUI();
 		break;
 	case MODE_GCO:
@@ -326,10 +345,16 @@ void SetPause(bool bPause)
 void DrawFPS(void)
 {
 	int nCountFPS = GetFps();
+	int nCntString = 0;
+	char aString[1000];
+
 	RECT rect = { 0, 0, WIDTH_SCREEN, HEIGHT_SCREEN };//check area
+	
 	CAMERA *pCamera = GetCamera();
 	D3DXVECTOR2 MouseMove = GetMouseVelocity();
-	char aStr[1000];//number of Fps
-	wsprintf(&aStr[0], "FFF:%d\n", (int)pCamera[0].fRot.x);//wsprintf can print on screen directly
-	g_pFont->DrawText(NULL, &aStr[0], -1, &rect, DT_LEFT, D3DCOLOR_RGBA(255, 255, 255, 255));//draw
+	int nnn = Getnnn();
+	nCntString = sprintf(&aString[0], "((視点)):%.2f %.2f %.2f\n", pCamera[0].posR.x, pCamera[0].posR.y, pCamera[0].posR.z);
+	nCntString += sprintf(&aString[1], "(???):%d\n", nnn);
+
+	g_pFont->DrawText(NULL, &aString[0], -1, &rect, DT_LEFT, D3DCOLOR_RGBA(255, 255, 255, 255));//draw
 }

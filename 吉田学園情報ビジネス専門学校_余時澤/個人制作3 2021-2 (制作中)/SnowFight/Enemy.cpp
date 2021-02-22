@@ -8,6 +8,53 @@
 
 MODEL *pEnemy;
 
+HRESULT InitEnemyMenu(void)
+{
+	LPDIRECT3DDEVICE9 pDevice = GetDevice();
+	pEnemy = (MODEL*)malloc(ENEMY_NUM * sizeof(MODEL));
+	float nCntPosz1 = -900.0f;
+	float nCntPosz2 = -900.0f;
+	float nCntPosz3 = -900.0f;
+	float nCntPosz4 = -900.0f;
+	for (int nCnt = 0; nCnt < ENEMY_NUM; nCnt++)
+	{
+		D3DXLoadMeshFromX("data/MODEL/SnowMan.x", D3DXMESH_SYSTEMMEM, pDevice, NULL, &pEnemy[nCnt].Xfile_Materials, NULL, &pEnemy[nCnt].Xfile_MaterialNum, &pEnemy[nCnt].Xfile_Mesh);
+		pEnemy[nCnt].bUse = true;
+		pEnemy[nCnt].rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+		pEnemy[nCnt].pos.y = -2.0f;
+		if (nCnt < 15)
+		{
+			pEnemy[nCnt].pos.x = -50.f;
+			pEnemy[nCnt].pos.z = nCntPosz1;
+			nCntPosz1 += 100.f;
+			pEnemy[nCnt].rot.y = D3DX_PI * 3 / 4;
+		}
+		else if (nCnt < 30)
+		{
+			pEnemy[nCnt].pos.x = 50.f;
+			pEnemy[nCnt].pos.z = nCntPosz2;
+			nCntPosz2 += 100.f;
+			pEnemy[nCnt].rot.y = -D3DX_PI * 3 / 4;
+		}
+		else if (nCnt < 40)
+		{
+			pEnemy[nCnt].pos.x = -100.f;
+			pEnemy[nCnt].pos.z = nCntPosz3;
+			nCntPosz3 += 200.f;
+			pEnemy[nCnt].rot.y = D3DX_PI * 3 / 4;
+		}
+		else
+		{
+			pEnemy[nCnt].pos.x = 100.f;
+			pEnemy[nCnt].pos.z = nCntPosz4;
+			nCntPosz4 += 200.f;
+			pEnemy[nCnt].rot.y = -D3DX_PI * 3 / 4;
+		}
+	
+	}
+	return S_OK;
+}
+
 HRESULT InitEnemy(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
@@ -41,7 +88,15 @@ void UninitEnemy(void)
 
 void UpdateEnemy(void)
 {
+	MODE mode = GetMode();
+	if (mode == MODE_MENU)
+	{
 
+	}
+	else if (mode == MODE_GAME)
+	{
+
+	}
 }
 
 void DrawEnemy(void)

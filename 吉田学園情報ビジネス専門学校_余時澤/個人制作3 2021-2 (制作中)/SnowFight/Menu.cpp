@@ -19,45 +19,30 @@ HRESULT InitMenu(void)
 	VERTEX_2D *pVtx;
 	pMenu = (POLYGON_2D *)malloc(MENU_COMPONENT * sizeof(POLYGON_2D));
 
-	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/MenuBackGround.png", &g_pTextureMenu[0])))return E_FAIL;
+	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/SelectHand.png", &g_pTextureMenu[0])))return E_FAIL;
 	pMenu[0].bUse = true;
-	pMenu[0].pos = D3DXVECTOR3(WIDTH_SCREEN / 2, HEIGHT_SCREEN / 2, 0);
-	pMenu[0].size = D3DXVECTOR2(WIDTH_SCREEN / 2, HEIGHT_SCREEN / 2);
+	pMenu[0].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 200 , HEIGHT_SCREEN / 2 - 150, 0);
+	pMenu[0].size = D3DXVECTOR2(WIDTH_SCREEN / 30, HEIGHT_SCREEN / 25);
 
-	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/SelectHand.png", &g_pTextureMenu[1])))return E_FAIL;
+	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Start.png", &g_pTextureMenu[1])))return E_FAIL;
 	pMenu[1].bUse = true;
-	pMenu[1].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 , HEIGHT_SCREEN / 2 - 150, 0);
-	pMenu[1].size = D3DXVECTOR2(WIDTH_SCREEN / 12, HEIGHT_SCREEN / 4);
+	pMenu[1].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 450, HEIGHT_SCREEN / 2 - 150, 0);
+	pMenu[1].size = D3DXVECTOR2(WIDTH_SCREEN / 12, HEIGHT_SCREEN / 8);
 
-	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Start.png", &g_pTextureMenu[2])))return E_FAIL;
+	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Tutorial.png", &g_pTextureMenu[2])))return E_FAIL;
 	pMenu[2].bUse = true;
-	pMenu[2].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 300, HEIGHT_SCREEN / 2 - 150, 0);
-	pMenu[2].size = D3DXVECTOR2(WIDTH_SCREEN / 12, HEIGHT_SCREEN / 8);
+	pMenu[2].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 450, HEIGHT_SCREEN / 2, 0);
+	pMenu[2].size = D3DXVECTOR2(WIDTH_SCREEN / 8, HEIGHT_SCREEN / 6);
 
-	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Tutorial.png", &g_pTextureMenu[3])))return E_FAIL;
-	pMenu[3].bUse = false;
-	pMenu[3].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 300, HEIGHT_SCREEN / 2, 0);
+	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Ranking.png", &g_pTextureMenu[3])))return E_FAIL;
+	pMenu[3].bUse = true;
+	pMenu[3].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 450, HEIGHT_SCREEN / 2 + 150, 0);
 	pMenu[3].size = D3DXVECTOR2(WIDTH_SCREEN / 12, HEIGHT_SCREEN / 8);
 
-	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Ranking.png", &g_pTextureMenu[4])))return E_FAIL;
+	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Exit.png", &g_pTextureMenu[4])))return E_FAIL;
 	pMenu[4].bUse = true;
-	pMenu[4].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 300, HEIGHT_SCREEN / 2, 0);
+	pMenu[4].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 450, HEIGHT_SCREEN / 2 + 300, 0);
 	pMenu[4].size = D3DXVECTOR2(WIDTH_SCREEN / 12, HEIGHT_SCREEN / 8);
-
-	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Exit.png", &g_pTextureMenu[5])))return E_FAIL;
-	pMenu[5].bUse = true;
-	pMenu[5].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 300, HEIGHT_SCREEN / 2 + 150, 0);
-	pMenu[5].size = D3DXVECTOR2(WIDTH_SCREEN / 12, HEIGHT_SCREEN / 8);
-
-	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Effect1.png", &g_pTextureMenu[6])))return E_FAIL;
-	pMenu[6].bUse = false;
-	pMenu[6].pos = D3DXVECTOR3(WIDTH_SCREEN / 2, HEIGHT_SCREEN / 2, 0);
-	pMenu[6].size = D3DXVECTOR2(WIDTH_SCREEN / 2, HEIGHT_SCREEN / 2);
-
-	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Effect2.png", &g_pTextureMenu[7])))return E_FAIL;
-	pMenu[7].bUse = false;
-	pMenu[7].pos = D3DXVECTOR3(WIDTH_SCREEN / 2, HEIGHT_SCREEN / 2, 0);
-	pMenu[7].size = D3DXVECTOR2(WIDTH_SCREEN / 2, HEIGHT_SCREEN / 2);
 
 	//create vertex buffer
 	if (FAILED(pDevice->CreateVertexBuffer(sizeof(VERTEX_2D) * 4 * MENU_COMPONENT, D3DUSAGE_WRITEONLY, FVF_VERTEX_2D, D3DPOOL_MANAGED, &g_pVtxBuffMenu, NULL))) return E_FAIL;
@@ -110,29 +95,32 @@ void UpdateMenu(void)
 	VERTEX_2D *pVtx;
 	g_nCntTime3++;
 
-	if (GetkeyboardTrigger(DIK_UP) == true)
+	if (GetkeyboardTrigger(DIK_W) == true)
 	{
-		pMenu[1].pos.y -= 150;
-		if (pMenu[1].pos.y < HEIGHT_SCREEN / 2 - 150) pMenu[1].pos.y = HEIGHT_SCREEN / 2 + 150;
+		pMenu[0].pos.y -= 150;
+		if (pMenu[0].pos.y < HEIGHT_SCREEN / 2 - 150) pMenu[0].pos.y = HEIGHT_SCREEN / 2 + 300;
 	}
-	if (GetkeyboardTrigger(DIK_DOWN) == true)
+	if (GetkeyboardTrigger(DIK_S) == true)
 	{
-		pMenu[1].pos.y += 150;
-		if (pMenu[1].pos.y > HEIGHT_SCREEN / 2 + 150) pMenu[1].pos.y = HEIGHT_SCREEN / 2 - 150;
+		pMenu[0].pos.y += 150;
+		if (pMenu[0].pos.y > HEIGHT_SCREEN / 2 + 300) pMenu[0].pos.y = HEIGHT_SCREEN / 2 - 150;
 	}
 
 	if (GetkeyboardTrigger(DIK_RETURN) == true)
 	{
-		int nPosy = (int)pMenu[1].pos.y;
+		int nPosy = (int)pMenu[0].pos.y;
 		switch (nPosy)
 		{
 		case  HEIGHT_SCREEN / 2 - 150:
 			SetFade(FADE_OUT, MODE_GAME);
 			break;
 		case  HEIGHT_SCREEN / 2:
-			SetFade(FADE_OUT, MODE_RANKING);
+			SetFade(FADE_OUT, MODE_TUTORIAL);
 			break;
 		case  HEIGHT_SCREEN / 2 + 150:
+			SetFade(FADE_OUT, MODE_RANKING);
+			break;
+		case  HEIGHT_SCREEN / 2 + 300:
 			PostQuitMessage(0);
 			break;
 		}

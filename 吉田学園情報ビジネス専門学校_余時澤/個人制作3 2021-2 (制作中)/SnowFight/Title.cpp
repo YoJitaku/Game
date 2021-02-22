@@ -31,7 +31,7 @@ HRESULT InitTitle(void)
 	pTitle[2].pos = D3DXVECTOR3(WIDTH_SCREEN / 2, HEIGHT_SCREEN / 2, 0);
 	pTitle[2].size = D3DXVECTOR2(WIDTH_SCREEN / 2, HEIGHT_SCREEN / 2);
 
-	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/TitleBackGround.png", &g_pTextureTitle[0])))return E_FAIL;
+	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/TitleBackGround.jpg", &g_pTextureTitle[0])))return E_FAIL;
 	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/GameLogo.png", &g_pTextureTitle[1])))return E_FAIL;
 	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/PressStart.png", &g_pTextureTitle[2])))return E_FAIL;
 
