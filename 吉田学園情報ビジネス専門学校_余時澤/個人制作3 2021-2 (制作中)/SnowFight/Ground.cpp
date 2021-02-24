@@ -36,9 +36,9 @@ HRESULT InitGround(void)
 
 	g_pVtxBuffGround->Lock(0, 0, (void**)&pVtx, 0);
 	int nCntNum = 0;
-	for (int nCntRow = 0; nCntRow < ROW_NUM + 1; nCntRow++)
+	for (int nCntRow = 0; nCntRow <= ROW_NUM; nCntRow++)
 	{
-		for (int nCntColumn = 0; nCntColumn < COLUMN_NUM + 1; nCntColumn++)
+		for (int nCntColumn = 0; nCntColumn <= COLUMN_NUM; nCntColumn++)
 		{
 			pVtx[nCntNum].col = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 			//pVtx[nCntNum].nor = pGround[0].nor;

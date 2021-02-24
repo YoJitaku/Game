@@ -74,6 +74,7 @@ typedef struct
 	LPD3DXMESH Xfile_Mesh = NULL;//mesh
 	LPD3DXBUFFER Xfile_Materials = NULL;//材質buffer
 	DWORD Xfile_MaterialNum = 0;//材質num
+	D3DXMATRIX Xfile_Mtxworld;//
 	D3DXVECTOR3 pos;//各パーツの位置
 	D3DXVECTOR3 rot;//各パーツの向き
 	D3DXVECTOR3 move;//移動量
@@ -81,9 +82,11 @@ typedef struct
 	D3DXVECTOR3 MinColBox;
 	D3DXVECTOR3 MaxColBox;
 	int nIdxModelParent;//親パーツのID
-	int ID;
+	int nID;
+	int nMoveRange;
 	float fMoveSpeed;//移動速度
 	bool bUse;
+	bool bMove;
 }MODEL;
 
 typedef enum
@@ -93,7 +96,6 @@ typedef enum
 	MODE_TUTORIAL,
 	MODE_MENU,
 	MODE_GAME,
-	MODE_GCO,//game clear and game over
 	MODE_RANKING,
 	MODE_MAX,
 }MODE;

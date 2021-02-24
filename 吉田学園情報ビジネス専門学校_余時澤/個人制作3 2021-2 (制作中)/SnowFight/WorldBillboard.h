@@ -11,9 +11,9 @@
 #include <string.h>
 
 #define WORLDBILLBOARD_TEX_NUM 2
-#define WORLDBILLBOARD_NUM 44
+#define WORLDBILLBOARD_NUM 164
 
-void ReadFile(void);
+void ReadFileBillboard(void);
 void SetWorldBillboard(void);
 HRESULT InitWorldBillboard(void);
 void UninitWorldBillboard(void);

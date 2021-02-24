@@ -13,46 +13,24 @@ LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffWorldBillboard = NULL; //頂点bufferのpointer
 LPDIRECT3DTEXTURE9 g_pTextureWorldBillboard[WORLDBILLBOARD_TEX_NUM] = {}; //textureのpointer
 BILLBOARD *pWorldBillboard;
 
-void ReadFile(void)
+void ReadFileBillboard(void)
 {
 	FILE *pFile;
 	pFile = fopen("WorldBillboard.txt", "r");
 	for (int nCnt = 0; nCnt < WORLDBILLBOARD_NUM; nCnt++)
 	{
-		fscanf(pFile, "%d %d", 
-			&pWorldBillboard[nCnt].nID, 
-			&pWorldBillboard[nCnt].nTextureID);
 		fscanf(pFile, "%f %f %f",
 			&pWorldBillboard[nCnt].pos.x,
 			&pWorldBillboard[nCnt].pos.y,
 			&pWorldBillboard[nCnt].pos.z);
 
-		pWorldBillboard[nCnt].size = D3DXVECTOR2(20, 40);
+		pWorldBillboard[nCnt].nID = nCnt;
+		pWorldBillboard[nCnt].nTextureID = rand() % 2;
+		pWorldBillboard[nCnt].size = D3DXVECTOR2(80, 150);
 		pWorldBillboard[nCnt].pos.y += pWorldBillboard[nCnt].size.y;
 		pWorldBillboard[nCnt].nor = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
 		pWorldBillboard[nCnt].bUse = true;
 	}
-		
-#if 0
-	pFile = fopen("WorldBillboard.csv", "r");
-
-	char aline[1000];//行の情報
-	int nCntColumn = 0;//列Count
-	int nCntRow = 0;//行Count
-
-	while (fgets(aline, 1000, pFile) != NULL)//最後まで
-	{
-		char *pToken = strtok(aline, ",");//読点で分かれている
-		while (pToken != NULL)//最後まで
-		{
-			int nNum = atoi(pToken);//data種類変換
-			g_aMapData[nCntRow][nCntColumn] = nNum;//保存
-			pToken = strtok(NULL, ",");//reset
-			nCntColumn++;
-		}
-		nCntRow++;
-	}
-#endif // 0
 	fclose(pFile);
 }
 
@@ -130,7 +108,7 @@ HRESULT InitWorldBillboard(void)
 	//D3DXCreateTextureFromFile(pDevice, "data/TEXTURE/grass2.png", &g_pTextureWorldBillboard[4]);
 
 	pWorldBillboard = (BILLBOARD *)malloc(WORLDBILLBOARD_NUM * sizeof(BILLBOARD)); //メモリ定義
-	ReadFile();
+	ReadFileBillboard();
 
 	if (FAILED(pDevice->CreateVertexBuffer
 	(sizeof(VERTEX_3D) * WORLDBILLBOARD_NUM * 4,

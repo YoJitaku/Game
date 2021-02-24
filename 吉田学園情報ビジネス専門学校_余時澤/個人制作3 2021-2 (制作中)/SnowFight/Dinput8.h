@@ -8,6 +8,7 @@
 #define _DINPUT8_H_
 #include "DirectX.h"
 
+#define MOUSE_LOSS 1
 typedef enum
 {
 	LEFT_BUTTON = 0,

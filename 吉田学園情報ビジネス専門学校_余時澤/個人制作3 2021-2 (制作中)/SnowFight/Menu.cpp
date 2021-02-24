@@ -21,27 +21,27 @@ HRESULT InitMenu(void)
 
 	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/SelectHand.png", &g_pTextureMenu[0])))return E_FAIL;
 	pMenu[0].bUse = true;
-	pMenu[0].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 200 , HEIGHT_SCREEN / 2 - 150, 0);
+	pMenu[0].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 - 250 , HEIGHT_SCREEN / 2 - 150, 0);
 	pMenu[0].size = D3DXVECTOR2(WIDTH_SCREEN / 30, HEIGHT_SCREEN / 25);
 
 	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Start.png", &g_pTextureMenu[1])))return E_FAIL;
 	pMenu[1].bUse = true;
-	pMenu[1].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 450, HEIGHT_SCREEN / 2 - 150, 0);
+	pMenu[1].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 , HEIGHT_SCREEN / 2 - 150, 0);
 	pMenu[1].size = D3DXVECTOR2(WIDTH_SCREEN / 12, HEIGHT_SCREEN / 8);
 
 	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Tutorial.png", &g_pTextureMenu[2])))return E_FAIL;
 	pMenu[2].bUse = true;
-	pMenu[2].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 450, HEIGHT_SCREEN / 2, 0);
+	pMenu[2].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 , HEIGHT_SCREEN / 2, 0);
 	pMenu[2].size = D3DXVECTOR2(WIDTH_SCREEN / 8, HEIGHT_SCREEN / 6);
 
 	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Ranking.png", &g_pTextureMenu[3])))return E_FAIL;
 	pMenu[3].bUse = true;
-	pMenu[3].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 450, HEIGHT_SCREEN / 2 + 150, 0);
+	pMenu[3].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 , HEIGHT_SCREEN / 2 + 150, 0);
 	pMenu[3].size = D3DXVECTOR2(WIDTH_SCREEN / 12, HEIGHT_SCREEN / 8);
 
 	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/Texture/ScreenTransition/Exit.png", &g_pTextureMenu[4])))return E_FAIL;
 	pMenu[4].bUse = true;
-	pMenu[4].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 450, HEIGHT_SCREEN / 2 + 300, 0);
+	pMenu[4].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 , HEIGHT_SCREEN / 2 + 300, 0);
 	pMenu[4].size = D3DXVECTOR2(WIDTH_SCREEN / 12, HEIGHT_SCREEN / 8);
 
 	//create vertex buffer

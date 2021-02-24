@@ -4,6 +4,7 @@
 // Author : JITAKU YO
 //
 //=============================================================================
+#define _CRT_SECURE_NO_WARNINGS
 #include "WorldModel.h"
 #include "Camera.h"
 #include "Collision.h"
@@ -15,14 +16,9 @@ COLLISION_BOX *pCol_Box;
 void InitWorldModel(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
-
 	//VERTEX_3D *pVtx;
 	pWorldModel = (MODEL*)malloc(WORLDMODEL_NUM * sizeof(MODEL));
 	pCol_Box = (COLLISION_BOX*)malloc(WORLDMODEL_NUM * sizeof(COLLISION_BOX));
-	D3DXLoadMeshFromX("data/MODEL/Car/Car0.x", D3DXMESH_SYSTEMMEM, pDevice, NULL, &pWorldModel[0].Xfile_Materials, NULL, &pWorldModel[0].Xfile_MaterialNum, &pWorldModel[0].Xfile_Mesh);
-	//D3DXLoadMeshFromX("data/MODEL/Car/Car1.x", D3DXMESH_SYSTEMMEM, pDevice, NULL, &pWorldModel[1].Xfile_Materials, NULL, &pWorldModel[1].Xfile_MaterialNum, &pWorldModel[1].Xfile_Mesh);
-	//D3DXLoadMeshFromX("data/MODEL/Car/Car2.x", D3DXMESH_SYSTEMMEM, pDevice, NULL, &pWorldModel[2].Xfile_Materials, NULL, &pWorldModel[2].Xfile_MaterialNum, &pWorldModel[2].Xfile_Mesh);
-	//D3DXLoadMeshFromX("data/MODEL/Car/Car3.x", D3DXMESH_SYSTEMMEM, pDevice, NULL, &pWorldModel[3].Xfile_Materials, NULL, &pWorldModel[3].Xfile_MaterialNum, &pWorldModel[3].Xfile_Mesh);
 	SetWorldModel();
 
 	//材質とUVテクスチャを読み込む
@@ -46,7 +42,6 @@ void InitWorldModel(void)
 		}
 	}
 
-
 	//当たり判定用boxの設定
 	int nNumVtx;//頂点数
 	DWORD sizeFvF;//一つ頂点formatのsize
@@ -59,8 +54,7 @@ void InitWorldModel(void)
 		for (int nCntVtx = 0; nCntVtx < nNumVtx; nCntVtx++)
 		{
 			D3DXVECTOR3 vtx = *(D3DXVECTOR3*)pVtxBuff;//頂点情報を取る
-			pVtxBuff += sizeFvF;//次に行く
-
+			
 			//当たり判定用boxの頂点を探す
 			if (nCntVtx == 0)//初めの頂点
 			{
@@ -72,36 +66,60 @@ void InitWorldModel(void)
 				if (vtx.x > pWorldModel[nCnt].MaxColBox.x) pWorldModel[nCnt].MaxColBox.x = vtx.x;
 				else if (vtx.x < pWorldModel[nCnt].MinColBox.x) pWorldModel[nCnt].MinColBox.x = vtx.x;
 				if (vtx.y > pWorldModel[nCnt].MaxColBox.y) pWorldModel[nCnt].MaxColBox.y = vtx.y;
-				else if (vtx.x < pWorldModel[nCnt].MinColBox.x) pWorldModel[nCnt].MinColBox.y = vtx.y;
+				else if (vtx.y < pWorldModel[nCnt].MinColBox.y) pWorldModel[nCnt].MinColBox.y = vtx.y;
 				if (vtx.z > pWorldModel[nCnt].MaxColBox.z) pWorldModel[nCnt].MaxColBox.z = vtx.z;
-				else if (vtx.x < pWorldModel[nCnt].MinColBox.x) pWorldModel[nCnt].MinColBox.z = vtx.z;
+				else if (vtx.z < pWorldModel[nCnt].MinColBox.z) pWorldModel[nCnt].MinColBox.z = vtx.z;
 			}
+
+			pVtxBuff += sizeFvF;//次に行く
 		}
 		pWorldModel[nCnt].MaxColBox = pWorldModel[nCnt].pos + pWorldModel[nCnt].MaxColBox;
 		pWorldModel[nCnt].MinColBox = pWorldModel[nCnt].pos + pWorldModel[nCnt].MinColBox;//minboxの値は負数
-
 		pWorldModel[nCnt].Xfile_Mesh->UnlockVertexBuffer();//unlock
 	}
 }
 
 void SetWorldModel(void)
 {
-	pWorldModel[0].pos = D3DXVECTOR3(20.f, 0.f, 20.f);
-	pWorldModel[0].rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-	pWorldModel[0].ID = 0;
-	pWorldModel[0].fMoveSpeed = 0.f;
-	//pWorldModel[1].pos = D3DXVECTOR3(25.f, 0.f, 200.f);
-	//pWorldModel[1].rot = D3DXVECTOR3(0.f, D3DX_PI / 2, 0.f);
-	//pWorldModel[1].ID = 1;
-	//pWorldModel[1].fMoveSpeed = 0.f;
-	//pWorldModel[2].pos = D3DXVECTOR3(-25.f, 0.f, 100.f);
-	//pWorldModel[2].rot = D3DXVECTOR3(0.f, -D3DX_PI / 2, 0.f);
-	//pWorldModel[2].ID = 2;
-	//pWorldModel[2].fMoveSpeed = 0.f;
-	//pWorldModel[3].pos = D3DXVECTOR3(-25.f, 0.f, 300.f);
-	//pWorldModel[3].rot = D3DXVECTOR3(0.f, D3DX_PI / 2, 0.f);
-	//pWorldModel[3].ID = 3;
-	//pWorldModel[3].fMoveSpeed = 0.f;
+	LPDIRECT3DDEVICE9 pDevice = GetDevice();
+	for (int nCnt = 0; nCnt < WORLDMODEL_NUM; nCnt++)
+	{
+		if (nCnt % 2 == 0)
+		{
+			pWorldModel[nCnt].rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+			pWorldModel[nCnt].pos.x = (float)(rand() % WORLDMODEL_POS_RANGE_X + WORLDMODEL_POS_RANGE_X);
+		}
+		else
+		{
+			pWorldModel[nCnt].rot = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
+			pWorldModel[nCnt].pos.x = (float)(rand() % WORLDMODEL_POS_RANGE_X - 2 * WORLDMODEL_POS_RANGE_X);
+		}
+	
+		pWorldModel[nCnt].pos.z = (float)(rand() % WORLDMODEL_POS_RANGE_Z - WORLDMODEL_POS_RANGE_Z / 2);
+		pWorldModel[nCnt].pos.y = 0;
+		pWorldModel[nCnt].move = D3DXVECTOR3(0.f, 0.f, 0.f);
+		pWorldModel[nCnt].nID = rand () % 4;
+		switch (pWorldModel[nCnt].nID)
+		{
+		case 0:
+			D3DXLoadMeshFromX("data/MODEL/Car/Car0.x", D3DXMESH_SYSTEMMEM, pDevice, NULL, &pWorldModel[nCnt].Xfile_Materials, NULL, &pWorldModel[nCnt].Xfile_MaterialNum, &pWorldModel[nCnt].Xfile_Mesh);
+			break;
+		case 1:
+			D3DXLoadMeshFromX("data/MODEL/Car/Car1.x", D3DXMESH_SYSTEMMEM, pDevice, NULL, &pWorldModel[nCnt].Xfile_Materials, NULL, &pWorldModel[nCnt].Xfile_MaterialNum, &pWorldModel[nCnt].Xfile_Mesh);
+			break;
+		case 2:
+			D3DXLoadMeshFromX("data/MODEL/Car/Car2.x", D3DXMESH_SYSTEMMEM, pDevice, NULL, &pWorldModel[nCnt].Xfile_Materials, NULL, &pWorldModel[nCnt].Xfile_MaterialNum, &pWorldModel[nCnt].Xfile_Mesh);
+			break;
+		case 3:
+			D3DXLoadMeshFromX("data/MODEL/Car/Car3.x", D3DXMESH_SYSTEMMEM, pDevice, NULL, &pWorldModel[nCnt].Xfile_Materials, NULL, &pWorldModel[nCnt].Xfile_MaterialNum, &pWorldModel[nCnt].Xfile_Mesh);
+			break;
+		default:
+			break;
+		}
+		pWorldModel[nCnt].bMove = true;
+		pWorldModel[nCnt].bUse = true;
+		pWorldModel[nCnt].fMoveSpeed = 0.f;
+	}
 }
 
 void UninitWorldModel(void)
@@ -111,8 +129,130 @@ void UninitWorldModel(void)
 
 void UpdateWorldModel(void)
 {
+	for (int nCnt = 0; nCnt < WORLDMODEL_NUM; nCnt++)
+	{
+		if (pWorldModel[nCnt].bMove == true)
+		{
+			if (nCnt % 2 == 0)
+			{
+				if (pWorldModel[nCnt].pos.x <= -WORLDMODEL_POS_RANGE_X)
+				{
+					pWorldModel[nCnt].pos.x = WORLDMODEL_POS_RANGE_X;
+					pWorldModel[nCnt].pos.z = (float)(rand() % WORLDMODEL_POS_RANGE_Z - WORLDMODEL_POS_RANGE_Z / 2);
 
+					//当たり判定用boxの設定
+					int nNumVtx;//頂点数
+					DWORD sizeFvF;//一つ頂点formatのsize
+					BYTE *pVtxBuff;//頂点bufferへのpointer
+					nNumVtx = pWorldModel[nCnt].Xfile_Mesh->GetNumVertices();//頂点数を取る
+					sizeFvF = D3DXGetFVFVertexSize(pWorldModel[nCnt].Xfile_Mesh->GetFVF());//formatの大きさ
+					pWorldModel[nCnt].Xfile_Mesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVtxBuff);//頂点buffをlock
+					for (int nCntVtx = 0; nCntVtx < nNumVtx; nCntVtx++)
+					{
+						D3DXVECTOR3 vtx = *(D3DXVECTOR3*)pVtxBuff;//頂点情報を取る
+						pVtxBuff += sizeFvF;//次に行く
 
+						//当たり判定用boxの頂点を探す
+						if (nCntVtx == 0)//初めの頂点
+						{
+							pWorldModel[nCnt].MaxColBox = vtx;
+							pWorldModel[nCnt].MinColBox = vtx;
+						}
+						else
+						{
+							if (vtx.x > pWorldModel[nCnt].MaxColBox.x) pWorldModel[nCnt].MaxColBox.x = vtx.x;
+							else if (vtx.x < pWorldModel[nCnt].MinColBox.x) pWorldModel[nCnt].MinColBox.x = vtx.x;
+							if (vtx.y > pWorldModel[nCnt].MaxColBox.y) pWorldModel[nCnt].MaxColBox.y = vtx.y;
+							else if (vtx.x < pWorldModel[nCnt].MinColBox.x) pWorldModel[nCnt].MinColBox.y = vtx.y;
+							if (vtx.z > pWorldModel[nCnt].MaxColBox.z) pWorldModel[nCnt].MaxColBox.z = vtx.z;
+							else if (vtx.x < pWorldModel[nCnt].MinColBox.x) pWorldModel[nCnt].MinColBox.z = vtx.z;
+						}
+					}
+					pWorldModel[nCnt].MaxColBox = pWorldModel[nCnt].pos + pWorldModel[nCnt].MaxColBox;
+					pWorldModel[nCnt].MinColBox = pWorldModel[nCnt].pos + pWorldModel[nCnt].MinColBox;//minboxの値は負数
+					pWorldModel[nCnt].Xfile_Mesh->UnlockVertexBuffer();//unlock
+				}
+				switch (pWorldModel[nCnt].nID)
+				{
+				case 0:
+					pWorldModel[nCnt].move.x = 5.f;
+					break;
+				case 1:
+					pWorldModel[nCnt].move.x = 10.f;
+					break;
+				case 2:
+					pWorldModel[nCnt].move.x = 15.f;
+					break;
+				case 3:
+					pWorldModel[nCnt].move.x = 20.f;
+					break;
+				}
+			}
+			else
+			{
+				if (pWorldModel[nCnt].pos.x >= WORLDMODEL_POS_RANGE_X)
+				{
+					pWorldModel[nCnt].pos.x = -WORLDMODEL_POS_RANGE_X;
+					pWorldModel[nCnt].pos.z = (float)(rand() % WORLDMODEL_POS_RANGE_Z - WORLDMODEL_POS_RANGE_Z / 2);
+
+					//当たり判定用boxの設定
+					int nNumVtx;//頂点数
+					DWORD sizeFvF;//一つ頂点formatのsize
+					BYTE *pVtxBuff;//頂点bufferへのpointer
+	
+					nNumVtx = pWorldModel[nCnt].Xfile_Mesh->GetNumVertices();//頂点数を取る
+					sizeFvF = D3DXGetFVFVertexSize(pWorldModel[nCnt].Xfile_Mesh->GetFVF());//formatの大きさ
+					pWorldModel[nCnt].Xfile_Mesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVtxBuff);//頂点buffをlock
+					for (int nCntVtx = 0; nCntVtx < nNumVtx; nCntVtx++)
+					{
+						D3DXVECTOR3 vtx = *(D3DXVECTOR3*)pVtxBuff;//頂点情報を取る
+						pVtxBuff += sizeFvF;//次に行く
+
+											//当たり判定用boxの頂点を探す
+						if (nCntVtx == 0)//初めの頂点
+						{
+							pWorldModel[nCnt].MaxColBox = vtx;
+							pWorldModel[nCnt].MinColBox = vtx;
+						}
+						else
+						{
+							if (vtx.x > pWorldModel[nCnt].MaxColBox.x) pWorldModel[nCnt].MaxColBox.x = vtx.x;
+							else if (vtx.x < pWorldModel[nCnt].MinColBox.x) pWorldModel[nCnt].MinColBox.x = vtx.x;
+							if (vtx.y > pWorldModel[nCnt].MaxColBox.y) pWorldModel[nCnt].MaxColBox.y = vtx.y;
+							else if (vtx.x < pWorldModel[nCnt].MinColBox.x) pWorldModel[nCnt].MinColBox.y = vtx.y;
+							if (vtx.z > pWorldModel[nCnt].MaxColBox.z) pWorldModel[nCnt].MaxColBox.z = vtx.z;
+							else if (vtx.x < pWorldModel[nCnt].MinColBox.x) pWorldModel[nCnt].MinColBox.z = vtx.z;
+						}
+					}
+					pWorldModel[nCnt].MaxColBox = pWorldModel[nCnt].pos + pWorldModel[nCnt].MaxColBox;
+					pWorldModel[nCnt].MinColBox = pWorldModel[nCnt].pos + pWorldModel[nCnt].MinColBox;//minboxの値は負数
+					pWorldModel[nCnt].Xfile_Mesh->UnlockVertexBuffer();//unlock
+				}
+				switch (pWorldModel[nCnt].nID)
+				{
+				case 0:
+					pWorldModel[nCnt].move.x = 5.f;
+					break;
+				case 1:
+					pWorldModel[nCnt].move.x = 10.f;
+					break;
+				case 2:
+					pWorldModel[nCnt].move.x = 15.f;
+					break;
+				case 3:
+					pWorldModel[nCnt].move.x = 20.f;
+					break;
+				}
+			}
+			pWorldModel[nCnt].pos += pWorldModel[nCnt].move;
+			pWorldModel[nCnt].MaxColBox += pWorldModel[nCnt].move;
+			pWorldModel[nCnt].MinColBox += pWorldModel[nCnt].move;
+		}
+		else
+		{
+
+		}
+	}
 }
 
 void DrawWorldModel(void)

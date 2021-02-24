@@ -8,7 +8,8 @@
 #define _CAMERA_H_
 #include "DirectX.h"
 
-#define DISTANCE_V_R 200.f
+#define DISTANCE_V_R 150.f
+#define CAMERA_SPIN_SPEED (D3DX_PI / 2000.f)
 typedef struct
 {
 	D3DXVECTOR3 posV; //Ž‹“_
@@ -20,11 +21,8 @@ typedef struct
 	float fVR;//version and target ‚Ì‹——£
 	float fSpeed;
 }CAMERA;
-
-HRESULT InitCameraMenu(void);
 HRESULT InitCamera(void);
 void UpdateCamera(void);
 void SetCamera(void);
 CAMERA *GetCamera(void);
-int Getnnn(void);
 #endif

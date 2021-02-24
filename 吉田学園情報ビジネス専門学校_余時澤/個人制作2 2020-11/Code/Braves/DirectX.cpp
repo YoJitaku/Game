@@ -180,7 +180,7 @@ void SetMode(MODE mode)
 	case MODE_RANK:
 		UninitUI();
 		UninitRank();
-		UninitPolyBlock(5);
+		//UninitPolyBlock(5);
 		break;
 	}
 
@@ -204,7 +204,7 @@ void SetMode(MODE mode)
 		break;
 	case MODE_RANK:
 		InitRank();
-		InitPolyBlock(5);
+		//InitPolyBlock(5);
 		break;
 	}
 	g_Mode = mode;
@@ -231,7 +231,7 @@ void UpdateMode(MODE mode)//更新処理
 		break;
 	case MODE_RANK:
 		UpdateRank();
-		UpdatePolyBlock(5);
+		//UpdatePolyBlock(5);
 		break;
 	}
 }
@@ -257,7 +257,7 @@ void DrawMode(MODE mode)//描画処理
 		break;
 	case MODE_RANK:
 		DrawRank();
-		DrawPolyBlock(5);
+		//DrawPolyBlock(5);
 		break;
 	}
 }

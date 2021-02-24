@@ -3,6 +3,9 @@
 #include "Camera.h"
 #include "WorldModel.h"
 #include "Collision.h"
+#include "Enemy.h"
+#include "UI.h"
+#include "Player.h"
 
 MODEL *pSnowBall;
 float g_fGravity = 0.05f;
@@ -37,28 +40,8 @@ void UninitSnowBall(void)
 
 void UpdateSnowBall(void)
 {
-	CAMERA *pCamera = GetCamera();
+	PLAYER *pPLayer = GetPlayer();
 
-	if (GetkeyboardRelease(DIK_SPACE) == true)
-	{
-		for (int nCnt = 0; nCnt < SNOWBALL_MAX_NUM; nCnt++)
-		{
-			if (pSnowBall[nCnt].bUse == false)
-			{
-				//描画有効に
-				pSnowBall[nCnt].bUse = true;
-				//座標初期化
-				pSnowBall[nCnt].pos.x = pCamera->posR.x + 20.f;
-				pSnowBall[nCnt].pos.y = pCamera->posR.y + 20.f;
-				pSnowBall[nCnt].pos.z = pCamera->posR.z;
-				//移動速度
-				pSnowBall[nCnt].move = (pCamera->posR - pCamera->posV) / SPEED_RADIO;
-				pSnowBall[nCnt].move.y += 2.f;
-				break;
-			}
-		}
-	}
-	
 	for (int nCnt = 0; nCnt < SNOWBALL_MAX_NUM; nCnt++)
 	{
 		if (pSnowBall[nCnt].bUse == true)
@@ -92,6 +75,39 @@ void UpdateSnowBall(void)
 			}
 		}
 	}
+	MODEL *pEnemy = GetEnemy();
+	for (int nCntBall = 0; nCntBall < SNOWBALL_MAX_NUM; nCntBall++)
+	{
+		bool bCol = false;
+		if (pSnowBall[nCntBall].bUse == true)
+		{
+			for (int nCntEnemy = 0; nCntEnemy < ENEMY_NUM; nCntEnemy++, pEnemy++)
+			{
+				if (pEnemy->bMove == true)
+				{
+					bCol = CollisionDetection(pSnowBall[nCntBall].pos, pEnemy->MinColBox, pEnemy->MaxColBox);
+					if (bCol == true)
+					{
+						pSnowBall[nCntBall].bUse = false;
+						pEnemy->pos.x -= -sinf(pEnemy->rot.y) * pEnemy->fMoveSpeed * 2;
+						pEnemy->pos.z -= -cosf(pEnemy->rot.y) * pEnemy->fMoveSpeed * 2;
+						pEnemy->pos.y += 10.f;
+						pEnemy->bMove = false;
+						pPLayer->nScore++;
+						if (nCntEnemy % 2 == 0)
+						{
+							pEnemy->rot.x = -D3DX_PI / 2;
+						}
+						else
+						{
+							pEnemy->rot.x = D3DX_PI / 2;
+						}
+					}
+				}
+			}
+		}
+	}
+
 }
 
 void DrawSnowBall(void)
@@ -132,8 +148,8 @@ void SetSnowBall(D3DXVECTOR3 pos, D3DXVECTOR3 move)
 			//座標初期化
 			pSnowBall[nCnt].pos = pos;
 			//移動速度
-			pSnowBall[nCnt].move = move;
-			
+			pSnowBall[nCnt].move = move / SPEED_RADIO;
+			pSnowBall[nCnt].move.y += 2.f;
 			break;
 		}
 	}
