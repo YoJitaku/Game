@@ -62,6 +62,7 @@ typedef struct
 {
 	D3DXVECTOR3 pos;
 	D3DXVECTOR2 size;
+	D3DXVECTOR3 move;
 	int nTexture, nPatternAnime;
 	bool bUse;
 	int nDisplayNumber;//•\Ž¦‚·‚énum

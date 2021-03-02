@@ -157,6 +157,7 @@
     <ClCompile Include="DirectX.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Fade.cpp" />
+    <ClCompile Include="FootPrint.cpp" />
     <ClCompile Include="GameClearOver.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SnowBall.cpp" />
     <ClCompile Include="SnowParticle.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UI.cpp" />
@@ -178,10 +180,12 @@
     <ClInclude Include="Dinput8.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Fade.h" />
+    <ClInclude Include="FootPrint.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SnowBall.h" />
     <ClInclude Include="SnowParticle.h" />
+    <ClInclude Include="sound.h" />
     <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="WorldBillboard.h" />

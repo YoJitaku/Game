@@ -9,6 +9,8 @@
 #include "player.h"
 #include "Dinput8.h"
 #include "Fade.h"
+#include "sound.h"
+
 //create buffer pointer
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffRank = NULL;
 //texture pointer
@@ -283,6 +285,7 @@ void UpdateRank(void)
 	if ((GetkeyboardTrigger(DIK_RETURN) == true))
 	{
 		SetFade(FADE_OUT, MODE_TITLE);
+		PlaySound(SOUND_LABEL_SE_DECIDE);
 	}
 	pRankPlayer = &g_aRankPlayer[0];
 	g_nCntAnimeRk++;

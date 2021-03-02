@@ -6,7 +6,7 @@
 #include "Enemy.h"
 #include "UI.h"
 #include "Player.h"
-
+#include "sound.h"
 MODEL *pSnowBall;
 float g_fGravity = 0.05f;
 float g_fCol_Range;
@@ -88,6 +88,7 @@ void UpdateSnowBall(void)
 					bCol = CollisionDetection(pSnowBall[nCntBall].pos, pEnemy->MinColBox, pEnemy->MaxColBox);
 					if (bCol == true)
 					{
+						PlaySound(SOUND_LABEL_SE_SNOWBALL);
 						pSnowBall[nCntBall].bUse = false;
 						pEnemy->pos.x -= -sinf(pEnemy->rot.y) * pEnemy->fMoveSpeed * 2;
 						pEnemy->pos.z -= -cosf(pEnemy->rot.y) * pEnemy->fMoveSpeed * 2;

@@ -7,7 +7,7 @@
 #include "Title.h"
 #include "Dinput8.h"
 #include "Fade.h"
-
+#include "sound.h"
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffTitle = NULL;
 LPDIRECT3DTEXTURE9 g_pTextureTitle[TITLE_COMPONENT] = {};
 POLYGON_2D *pTitle;
@@ -93,6 +93,7 @@ void UpdateTitle(void)
 	{
 		g_nBlinkSpeed = 5;
 		SetFade(FADE_OUT, MODE_MENU);
+		PlaySound(SOUND_LABEL_SE_DECIDE);
 	}
 
 	if (GetkeyboardRelease(DIK_RETURN) == true)

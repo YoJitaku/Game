@@ -9,6 +9,7 @@
 #include "Xinput.h"
 #include "Dinput8.h"
 #include "Fade.h"
+#include "sound.h"
 
 //画面遷移
 #include "Company.h"
@@ -118,12 +119,12 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)//why use HRESULT?
 	InitSkyBox();
 	InitWorldModel();
 	InitWorldBillboard();
-
-	//InitSound(hWnd);
+	InitSound(hWnd);
 
 	InitFade(MODE_COMPANY);
 	SetMode(MODE_COMPANY);
-
+	//InitFade(MODE_GAME);
+	//SetMode(MODE_GAME);
 	return S_OK;
 }
 
@@ -146,15 +147,14 @@ void Uninit(void)
 	}
 	Uninitkeyboard();
 	UninitMouse();
-	UninitPlayer();
 	UninitGround();
 	UninitWorldModel();
 	UninitSkyBox();
 	UninitWorldBillboard();
 	UninitSnowParticle();
+	UninitSound();
+	StopSound();
 
-	//UninitSound();
-	//StopSound();
 }
 
 void Update(void)
@@ -227,6 +227,8 @@ void SetMode(MODE mode)
 		break;
 	case MODE_TITLE:
 		InitTitle();
+		PlaySound(SOUND_LABEL_BGM);
+		InitPlayer();
 		break;
 	case MODE_MENU:
 		InitEnemyMenu();
@@ -236,8 +238,8 @@ void SetMode(MODE mode)
 		InitTutorial();
 		break;
 	case MODE_GAME:
-		InitEnemy();
 		InitPlayer();
+		InitEnemy();
 		InitUI();
 		InitSnowBall();
 		break;

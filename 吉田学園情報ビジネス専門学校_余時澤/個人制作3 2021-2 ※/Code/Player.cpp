@@ -8,6 +8,8 @@
 #include "Enemy.h"
 #include "Fade.h"
 #include "Ground.h"
+#include "sound.h"
+
 KEY aKeyDiff[10];//10ÉpÅ[Éc
 LPD3DXMESH g_pMeshPlayer = NULL;
 LPD3DXBUFFER g_pBuffMatPlayer = NULL;
@@ -16,6 +18,7 @@ PLAYER *pPlayer;
 
 float g_fGravityPlayer = 2.0f;
 int nCntTime = 0;
+bool bCarAlert = false;
 KEY KeyPosRot(float posX, float posY, float posZ, float rotX, float rotY, float rotZ)
 {
 	KEY key;
@@ -495,11 +498,25 @@ void UpdatePlayer(void)
 
 	MODEL *pModel = GetWorldModel();
 	bool bCol = false;
+	
 	for (int nCntMod = 0; nCntMod < WORLDMODEL_NUM; nCntMod++, pModel++)
 	{
+		if ((fabsf(pModel->pos.x - pPlayer[0].pos.x) <= 800) && fabsf(pModel->pos.z - pPlayer[0].pos.z) <= 100)
+		{
+			if (bCarAlert == false)
+			{
+				PlaySound(SOUND_LABEL_SE_CARHORN);
+				bCarAlert = true;
+			}
+			else if (nCntTime % 100 == 0)
+			{
+				bCarAlert = false;
+			}
+		}
 		bCol = CollisionDetection(D3DXVECTOR3(pPlayer[0].pos.x, pPlayer[0].pos.y + 30, pPlayer[0].pos.z), pModel->MinColBox, pModel->MaxColBox);
 		if (bCol == true)
 		{
+			PlaySound(SOUND_LABEL_SE_CARSTRIKE);
 			pPlayer[0].state = P_DEAD;
 			pPlayer[0].move.x = pModel->move.x * 50.0f;
 			pPlayer[0].move.z = pModel->move.x * 20.0f;
@@ -516,6 +533,7 @@ void UpdatePlayer(void)
 			bCol = CollisionDetection(D3DXVECTOR3(pPlayer[0].pos.x, pPlayer[0].pos.y + 15, pPlayer[0].pos.z), pEnemy->MinColBox, pEnemy->MaxColBox);
 			if (bCol == true)
 			{
+				PlaySound(SOUND_LABEL_SE_SNOWBALL);
 				pEnemy->pos.x -= -sinf(pEnemy->rot.y) * pEnemy->fMoveSpeed * 2;
 				pEnemy->pos.z -= -cosf(pEnemy->rot.y) * pEnemy->fMoveSpeed * 2;
 				pEnemy->pos.y += 10.f;
@@ -552,7 +570,6 @@ void UpdatePlayer(void)
 	{
 		PlayMotion(pPlayer[0].state);
 	}
-	
 }
 
 void DrawPlayer(void)
