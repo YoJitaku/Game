@@ -7,16 +7,20 @@
 #include "UI.h"
 #include "Fade.h"
 #include "Player.h"
-
+#include "Dinput8.h"
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffUI = NULL;
 LPDIRECT3DTEXTURE9 g_pTextureUI[UI_TYPE] = {};
 POLYGON_2D *pUIPoly;
 POLYGON_NUM *pUInum;
+D3DXCOLOR color;
 int nCntTime4;
-
+int nCntTime5;
+int nScoreCount;
 HRESULT InitUI(void)
 {
 	nCntTime4 = 0;
+	nCntTime5 = 0;
+	nScoreCount = 0;
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	VERTEX_2D *pVtx;
 	pUInum = (POLYGON_NUM *)malloc(UI_NUMBER * sizeof(POLYGON_NUM));
@@ -26,6 +30,7 @@ HRESULT InitUI(void)
 	pUInum[0].bUse = true;
 	pUInum[0].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 - 30, 100, 0);
 	pUInum[0].size = D3DXVECTOR2(35, 45);
+	pUInum[0].move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	pUInum[0].nTexture = 0;
 	pUInum[0].nDisplayNumber = 9;
 	pUInum[1].bUse = true;
@@ -38,15 +43,19 @@ HRESULT InitUI(void)
 	if (FAILED(D3DXCreateTextureFromFile(pDevice, "data/TEXTURE/UI/BulletNumber.png", &g_pTextureUI[1])))return E_FAIL;
 	pUInum[2].bUse = true;
 	pUInum[2].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 750, 100, 0);
+	pUInum[2].move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	pUInum[2].size = D3DXVECTOR2(30, 40);
 	pUInum[2].nTexture = 1;
 	pUInum[2].nDisplayNumber = 0;
 
 	pUInum[3].bUse = true;
 	pUInum[3].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 820, 100, 0);
+	pUInum[3].move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	pUInum[3].size = D3DXVECTOR2(30, 40);
 	pUInum[3].nTexture = 1;
+	
 	pUInum[3].nDisplayNumber = 0;
+
 
 	if (FAILED(pDevice->CreateVertexBuffer(sizeof(VERTEX_2D) * 4 * (UI_NUMBER), D3DUSAGE_WRITEONLY, FVF_VERTEX_2D, D3DPOOL_MANAGED, &g_pVtxBuffUI, NULL))) return E_FAIL;
 
@@ -58,10 +67,10 @@ HRESULT InitUI(void)
 		pVtx[1].pos = D3DXVECTOR3(pUInum[nCntUI].pos.x + pUInum[nCntUI].size.x, pUInum[nCntUI].pos.y - pUInum[nCntUI].size.y, 0.0f);
 		pVtx[2].pos = D3DXVECTOR3(pUInum[nCntUI].pos.x - pUInum[nCntUI].size.x, pUInum[nCntUI].pos.y + pUInum[nCntUI].size.y, 0.0f);
 		pVtx[3].pos = D3DXVECTOR3(pUInum[nCntUI].pos.x + pUInum[nCntUI].size.x, pUInum[nCntUI].pos.y + pUInum[nCntUI].size.y, 0.0f);
-		pVtx[0].col = D3DCOLOR_RGBA(255, 255, 255, 255);
-		pVtx[1].col = D3DCOLOR_RGBA(255, 255, 255, 255);
-		pVtx[2].col = D3DCOLOR_RGBA(255, 255, 255, 255);
-		pVtx[3].col = D3DCOLOR_RGBA(255, 255, 255, 255);
+		pVtx[0].col = D3DCOLOR_RGBA(255,0, 0, 255);
+		pVtx[1].col = D3DCOLOR_RGBA(255,0, 0, 255);
+		pVtx[2].col = D3DCOLOR_RGBA(255,0, 0, 255);
+		pVtx[3].col = D3DCOLOR_RGBA(255,0, 0, 255);
 		pVtx[0].rhw = 1.0f;
 		pVtx[1].rhw = 1.0f;
 		pVtx[2].rhw = 1.0f;
@@ -96,11 +105,27 @@ void UninitUI(void)
 void UpdateUI(void)
 {
 	nCntTime4++;
+	VERTEX_2D *pVtx;
+	
 	if (nCntTime4 % 60 == 1)
 	{
 		if (pUInum[1].nDisplayNumber != 0)
 		{
 			pUInum[1].nDisplayNumber--;
+			if (pUInum[1].nDisplayNumber == 8)
+			{
+				pUInum[0].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 - 30, 100, 0);
+				pUInum[0].size = D3DXVECTOR2(35, 45);
+				pUInum[1].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 30, 100, 0);
+				pUInum[1].size = D3DXVECTOR2(35, 45);
+			}
+			else if (pUInum[1].nDisplayNumber == 0)
+			{
+				pUInum[0].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 - 60, 180, 0);
+				pUInum[0].size = D3DXVECTOR2(60, 80);
+				pUInum[1].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 60, 180, 0);
+				pUInum[1].size = D3DXVECTOR2(60, 80);
+			}
 		}
 		else
 		{
@@ -108,6 +133,7 @@ void UpdateUI(void)
 			{
 				pUInum[0].nDisplayNumber--;
 				pUInum[1].nDisplayNumber = 9;
+
 			}
 			else
 			{
@@ -118,6 +144,7 @@ void UpdateUI(void)
 
 	PLAYER *pPlayer = GetPlayer();
 	int	nScore = pPlayer[0].nScore;
+	
 	if (nScore >= 10)
 	{
 		pUInum[3].nDisplayNumber = nScore % 10;
@@ -127,8 +154,40 @@ void UpdateUI(void)
 	{
 		pUInum[3].nDisplayNumber = nScore;
 	}
+	
+	if (pPlayer[0].nScore % 5 == 0)
+	{
+		if (nCntTime5 == 0 && pPlayer[0].nScore != nScoreCount)
+		{
+			nScoreCount = pPlayer[0].nScore;
+			pUInum[2].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 550, 200, 0);
+			pUInum[2].size = D3DXVECTOR2(60, 80);
+			pUInum[3].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 650, 200, 0);
+			pUInum[3].size = D3DXVECTOR2(60, 80);
 
-	VERTEX_2D *pVtx;
+		}
+		else if (nCntTime5 > 50)
+		{
+			pUInum[2].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 750, 100, 0);
+			pUInum[2].size = D3DXVECTOR2(30, 40);
+			pUInum[3].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 820, 100, 0);
+			pUInum[3].size = D3DXVECTOR2(30, 40);
+		}
+		nCntTime5++;
+	}
+	else
+	{
+		pUInum[2].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 750, 100, 0);
+		pUInum[2].size = D3DXVECTOR2(30, 40);
+		pUInum[3].pos = D3DXVECTOR3(WIDTH_SCREEN / 2 + 820, 100, 0);
+		pUInum[3].size = D3DXVECTOR2(30, 40);
+		nCntTime5 = 0;
+	}
+	if (GetkeyboardTrigger(DIK_Y) == true)
+	{
+		pPlayer[0].nScore++;
+	}
+
 	g_pVtxBuffUI->Lock(0, 0, (void**)&pVtx, 0);
 	//number
 	for (int nCntUI = 0; nCntUI < UI_NUMBER; nCntUI++, pVtx += 4)
@@ -137,13 +196,21 @@ void UpdateUI(void)
 		pVtx[1].tex = D3DXVECTOR2((pUInum[nCntUI].nDisplayNumber * 0.1f + 0.1f), 0.0);
 		pVtx[2].tex = D3DXVECTOR2((pUInum[nCntUI].nDisplayNumber * 0.1f), 1.0);
 		pVtx[3].tex = D3DXVECTOR2((pUInum[nCntUI].nDisplayNumber * 0.1f + 0.1f), 1.0);
+		pVtx[0].col = D3DCOLOR_RGBA(255, 0, 0, 255);
+		pVtx[1].col = D3DCOLOR_RGBA(255, 0, 0, 255);
+		pVtx[2].col = D3DCOLOR_RGBA(255, 0, 0, 255);
+		pVtx[3].col = D3DCOLOR_RGBA(255, 0, 0, 255);
+		pVtx[0].pos = D3DXVECTOR3(pUInum[nCntUI].pos.x - pUInum[nCntUI].size.x, pUInum[nCntUI].pos.y - pUInum[nCntUI].size.y, 0.0f);
+		pVtx[1].pos = D3DXVECTOR3(pUInum[nCntUI].pos.x + pUInum[nCntUI].size.x, pUInum[nCntUI].pos.y - pUInum[nCntUI].size.y, 0.0f);
+		pVtx[2].pos = D3DXVECTOR3(pUInum[nCntUI].pos.x - pUInum[nCntUI].size.x, pUInum[nCntUI].pos.y + pUInum[nCntUI].size.y, 0.0f);
+		pVtx[3].pos = D3DXVECTOR3(pUInum[nCntUI].pos.x + pUInum[nCntUI].size.x, pUInum[nCntUI].pos.y + pUInum[nCntUI].size.y, 0.0f);
 	}
 	g_pVtxBuffUI->Unlock();
 }
 
 void DrawUI(void)
 {
-	LPDIRECT3DDEVICE9 pDevice = GetDevice();;
+	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 	pDevice->SetStreamSource(0, g_pVtxBuffUI, 0, sizeof(VERTEX_2D));
 	pDevice->SetFVF(FVF_VERTEX_2D);
 	for (int nCnt = 0; nCnt < UI_NUMBER; nCnt++)

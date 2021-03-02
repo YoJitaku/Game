@@ -9,7 +9,7 @@
 #include "Dinput8.h"
 #include "Enemy.h"
 #include "Player.h"
-
+#include "sound.h"
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffMenu = NULL;
 LPDIRECT3DTEXTURE9 g_pTextureMenu[MENU_COMPONENT] = {};
 POLYGON_2D *pMenu;
@@ -115,9 +115,11 @@ void UpdateMenu(void)
 		{
 		case  HEIGHT_SCREEN / 2:
 			SetFade(FADE_OUT, MODE_GAME);
+			PlaySound(SOUND_LABEL_SE_DECIDE);
 			break;
 		case  HEIGHT_SCREEN / 2 + 150:
 			SetFade(FADE_OUT, MODE_TUTORIAL);
+			PlaySound(SOUND_LABEL_SE_DECIDE);
 			break;
 		//case  HEIGHT_SCREEN / 2 + 150:
 		//	SetFade(FADE_OUT, MODE_RANKING);
