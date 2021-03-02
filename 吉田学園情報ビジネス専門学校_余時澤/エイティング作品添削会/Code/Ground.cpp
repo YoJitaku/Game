@@ -115,10 +115,7 @@ void UninitGround(void)
 	if (g_pIdxBuffGround != NULL)
 		g_pIdxBuffGround = NULL;
 }
-void UpdateGround(void)
-{
 
-}
 void DrawGround(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();

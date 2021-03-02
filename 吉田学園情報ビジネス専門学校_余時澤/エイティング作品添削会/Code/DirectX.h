@@ -10,7 +10,6 @@
 #define DIRECTINPUT_VERSION (0x0800)
 #include "dinput.h"
 #include "xaudio2.h"
-//#include <XInput.h>
 #include <time.h>
 #include <stdio.h>
 #include "Main.h"
@@ -20,7 +19,6 @@
 #pragma comment(lib, "winmm.lib")//FPSŒv‘ª
 #pragma comment(lib, "dinput8.lib")//keyboard
 #pragma comment(lib, "dxguid.lib")//IID_IDirectInput8A,GUID_SysKeyboard,GUID_Key
-//#pragma comment(lib, "xinput.lib")
 
 #define FVF_VERTEX_3D (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 #define FVF_VERTEX_2D (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1)
@@ -124,4 +122,3 @@ void DrawMode(MODE mode);
 MODE GetMode(void);
 void SetMode(MODE mode);
 void SetPause(bool bPause);
-void DrawFPS(void);

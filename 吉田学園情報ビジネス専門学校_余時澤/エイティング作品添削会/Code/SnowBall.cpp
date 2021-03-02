@@ -7,9 +7,11 @@
 #include "UI.h"
 #include "Player.h"
 #include "sound.h"
+
 MODEL *pSnowBall;
 float g_fGravity = 0.05f;
 float g_fCol_Range;
+
 HRESULT InitSnowBall(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
@@ -21,15 +23,6 @@ HRESULT InitSnowBall(void)
 		pSnowBall[nCnt].bUse = false;
 		pSnowBall[nCnt].pos = D3DXVECTOR3(0.f, 0.f, 0.f);
 	}
-
-	//BYTE *pVtxBuff;//頂点bufferへのpointer
-	//D3DXVECTOR3 Sphere_Radius;
-	//pSnowBall[0].Xfile_Mesh->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVtxBuff);//頂点buffをlock
-	//D3DXVECTOR3 vtx = *(D3DXVECTOR3*)pVtxBuff;//頂点情報を取る
-	//Sphere_Radius = vtx - pSnowBall[0].pos;//球半径のvector
-	//pSnowBall[0].Xfile_Mesh->UnlockVertexBuffer();//unlock
-	//g_fCol_Range = sqrt(Sphere_Radius.x * Sphere_Radius.x + Sphere_Radius.y * Sphere_Radius.y + Sphere_Radius.z * Sphere_Radius.z);
-
 	return S_OK;
 }
 
@@ -54,10 +47,6 @@ void UpdateSnowBall(void)
 				pSnowBall[nCnt].bUse = false;
 			}
 		}
-		////弾とカメラの間距離MAX_DISTANCEより遠い場合は弾を消す
-		//D3DXVECTOR3 Distance = pSnowBall[nCnt].pos - pCamera->posV;
-		//float fDistance = sqrtf(Distance.x * Distance.x + Distance.y * Distance.y + Distance.z * Distance.z);
-		//if (fDistance > MAX_DISTANCE) pSnowBall[nCnt].bUse = false;
 	}
 
 	//当たり判定 snowballとmodelを当た時消す

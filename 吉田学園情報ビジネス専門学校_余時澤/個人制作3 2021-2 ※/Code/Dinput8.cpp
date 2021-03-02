@@ -29,14 +29,6 @@ HRESULT Initkeyboard(HINSTANCE hInstance, HWND hWnd)
 	//set the data type of keyboard c_dfDIKeyboard 
 	if (FAILED(g_pDevkeyborad->SetDataFormat(&c_dfDIKeyboard)))	return E_FAIL;
 	//set the cooperativelevel
-	/*
-	DISCL_FOREGROUND
-	have been chosen can get the message
-	DISCL_BACKGROUND
-	any time can get the message
-	DISCL_EXCLUSIVE monopolize
-	DISCL_NONEXCLUSIVE unmonopolize
-	*/
 	if (FAILED(g_pDevkeyborad->SetCooperativeLevel(hWnd, (DISCL_FOREGROUND | DISCL_NONEXCLUSIVE)))) return E_FAIL;
 	//use acquire function to get the device
 	if (FAILED(g_pDevkeyborad->Acquire())) return E_FAIL;

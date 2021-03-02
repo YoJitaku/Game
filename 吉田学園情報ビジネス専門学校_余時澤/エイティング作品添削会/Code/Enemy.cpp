@@ -9,6 +9,7 @@
 MODEL *pEnemy;
 MODEL *pEnemyM;
 int g_nCntTime = 0;
+
 HRESULT InitEnemyMenu(void)
 {
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();

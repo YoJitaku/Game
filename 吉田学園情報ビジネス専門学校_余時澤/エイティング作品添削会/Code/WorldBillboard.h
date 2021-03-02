@@ -14,8 +14,6 @@
 #define WORLDBILLBOARD_NUM 164
 
 void ReadFileBillboard(void);
-void SetWorldBillboard(void);
 HRESULT InitWorldBillboard(void);
 void UninitWorldBillboard(void);
-void UpdateWorldBillboard(void);
 void DrawWorldBillboard(void);

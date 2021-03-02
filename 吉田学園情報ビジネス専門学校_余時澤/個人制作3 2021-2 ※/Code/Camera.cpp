@@ -39,15 +39,6 @@ HRESULT InitCamera(void)
 {
 	pCamera = (CAMERA *)malloc(3 * sizeof(CAMERA));
 
-	//pCamera[0].fVR = DISTANCE_V_R;
-	//pCamera[0].fRot = D3DXVECTOR2(0.0f, D3DX_PI);
-	//pCamera[0].posV = D3DXVECTOR3(0.f, 50.0f, -pCamera[0].fVR); //éãì_
-	//pCamera[0].posR = D3DXVECTOR3(0.f, 0.f, -0.f); //íçéãì_
-	//g_PrePosVer = pCamera[0].posR;
-	//g_MovePosVer = D3DXVECTOR3(0.f, 0.f, 0.f);
-	//pCamera[0].vecV = D3DXVECTOR3(0.f, 1.f, 0.f); //ñ@ê¸
-	//pCamera[0].fSpeed = 1.0f;
-
 	//rank
 	pCamera[1].fVR = DISTANCE_V_R;
 	pCamera[1].fRot = D3DXVECTOR2(0.0f, 0.0f);

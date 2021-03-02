@@ -15,7 +15,6 @@
 #include "Company.h"
 #include "Title.h"
 #include "Menu.h"
-#include "GameClearOver.h"
 #include "Ranking.h"
 #include "Tutorial.h"
 
@@ -43,7 +42,6 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)//why use HRESULT?
 {
 	g_bPause = false;
 	g_Mode = MODE_COMPANY;
-	//g_Mode = MODE_GAME;
 	srand((int)time(0));
 	//check the user's hardware character
 	D3DDISPLAYMODE d3ddm;//graphics card mode
@@ -123,8 +121,6 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)//why use HRESULT?
 
 	InitFade(MODE_COMPANY);
 	SetMode(MODE_COMPANY);
-	//InitFade(MODE_GAME);
-	//SetMode(MODE_GAME);
 	return S_OK;
 }
 
@@ -171,13 +167,9 @@ void Draw(void)
 	//BeginScene and EndScene to tell the system when it should be start or end the rendering, u can put anyother rendering set between
 	if (SUCCEEDED(g_pD3DDevice->BeginScene()))
 	{
-		DrawFPS();
 		DrawMode(g_Mode);
 		DrawFade();
 		SetCamera();
-#ifdef _DEBUG
-		DrawFPS();
-#endif
 		g_pD3DDevice->EndScene();
 	}
 	//show the rendering
@@ -210,9 +202,6 @@ void SetMode(MODE mode)
 		UninitUI();
 		UninitSnowBall();
 		break;
-	case MODE_GCO:
-		UninitGCO();
-		break;
 	case MODE_RANKING:
 		UninitEnemy();
 		UninitRank();
@@ -242,9 +231,6 @@ void SetMode(MODE mode)
 		InitEnemy();
 		InitUI();
 		InitSnowBall();
-		break;
-	case MODE_GCO:
-		InitGCO();
 		break;
 	case MODE_RANKING:
 		InitRank();
@@ -278,13 +264,7 @@ void UpdateMode(MODE mode)
 		UpdateSnowParticle();
 		UpdatePlayer();
 		UpdateCamera();
-		if (GetkeyboardPress(DIK_RETURN) == TRUE)
-		{
-			SetFade(FADE_OUT, MODE_RANKING);
-		}
-		break;
-	case MODE_GCO:
-		UpdateGCO();
+		if (GetkeyboardPress(DIK_RETURN) == TRUE) SetFade(FADE_OUT, MODE_RANKING);
 		break;
 	case MODE_RANKING:
 		UpdateEnemy();
@@ -328,9 +308,6 @@ void DrawMode(MODE mode)
 		DrawEnemy();
 		DrawUI();
 		break;
-	case MODE_GCO:
-		DrawGCO();
-		break;
 	case MODE_RANKING:
 		DrawGround();
 		DrawSkyBox();
@@ -351,13 +328,4 @@ MODE GetMode(void)
 void SetPause(bool bPause)
 {
 	g_bPause = bPause;
-}
-
-void DrawFPS(void)
-{
-	//int nCountFPS = GetFps();
-	//int nCntString = 0;
-	//char aString[1000];
-	//RECT rect = { 0, 0, WIDTH_SCREEN, HEIGHT_SCREEN };//check area
-	//g_pFont->DrawText(NULL, &aString[0], -1, &rect, DT_LEFT, D3DCOLOR_RGBA(255, 255, 255, 255));//draw
 }

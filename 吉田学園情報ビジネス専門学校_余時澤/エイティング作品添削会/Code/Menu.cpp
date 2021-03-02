@@ -121,9 +121,6 @@ void UpdateMenu(void)
 			SetFade(FADE_OUT, MODE_TUTORIAL);
 			PlaySound(SOUND_LABEL_SE_DECIDE);
 			break;
-		//case  HEIGHT_SCREEN / 2 + 150:
-		//	SetFade(FADE_OUT, MODE_RANKING);
-		//	break;
 		case  HEIGHT_SCREEN / 2 + 300:
 			PostQuitMessage(0);
 			break;

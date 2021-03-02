@@ -77,7 +77,14 @@ HRESULT InitSkyBox(void)
 
 void UninitSkyBox(void)
 {
-
+	if (g_pVtxBuffSkyBox != NULL)
+		g_pVtxBuffSkyBox = NULL;
+	for (int nCnt = 0; nCnt < SKYBOX_POLY; nCnt++)
+	{
+		if (g_pTextureSkyBox[nCnt] != NULL)
+			g_pTextureSkyBox[nCnt] = NULL;
+	}
+	free(pSkyBox);
 }
 
 void DrawSkyBox(void)

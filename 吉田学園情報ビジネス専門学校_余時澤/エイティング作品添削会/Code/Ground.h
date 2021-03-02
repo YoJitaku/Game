@@ -15,7 +15,6 @@
 
 HRESULT InitGround(void);
 void UninitGround(void);
-void UpdateGround(void);
 void DrawGround(void);
 
 #endif

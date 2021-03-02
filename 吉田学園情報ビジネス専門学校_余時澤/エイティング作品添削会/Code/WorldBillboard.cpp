@@ -40,9 +40,6 @@ HRESULT InitWorldBillboard(void)
 	VERTEX_3D *pVtx;
 	D3DXCreateTextureFromFile(pDevice, "data/TEXTURE/Billboard/tree1.png", &g_pTextureWorldBillboard[0]);
 	D3DXCreateTextureFromFile(pDevice, "data/TEXTURE/Billboard/tree2.png", &g_pTextureWorldBillboard[1]);
-	//D3DXCreateTextureFromFile(pDevice, "data/TEXTURE/tree3.png", &g_pTextureWorldBillboard[2]);
-	//D3DXCreateTextureFromFile(pDevice, "data/TEXTURE/grass1.png", &g_pTextureWorldBillboard[3]);
-	//D3DXCreateTextureFromFile(pDevice, "data/TEXTURE/grass2.png", &g_pTextureWorldBillboard[4]);
 
 	pWorldBillboard = (BILLBOARD *)malloc(WORLDBILLBOARD_NUM * sizeof(BILLBOARD)); //ÉÅÉÇÉäíËã`
 	ReadFileBillboard();
